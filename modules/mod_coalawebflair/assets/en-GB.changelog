@@ -1,0 +1,48 @@
+<?php defined('_JEXEC') or die('Restricted access');
+/**
+ * @package             Joomla
+ * @subpackage          CoalaWeb Flair Module
+ * @author              Steven Palmer
+ * @author url          http://coalaweb.com
+ * @author email        support@coalaweb.com
+ * @license             GNU/GPL, see /assets/en-GB.license.txt
+ * @copyright           Copyright (c) 2013 Steven Palmer All rights reserved.
+ * @version             Version 0.0.2 December 2012
+ *
+ * Coala Web Social Links is free software: you can redistribute it and/or modify
+ * it under the terms of the GNU General Public License as published by
+ * the Free Software Foundation, either version 3 of the License, or
+ * (at your option) any later version.
+
+ * This program is distributed in the hope that it will be useful,
+     * but WITHOUT ANY WARRANTY; without even the implied warranty of
+ * MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
+ * GNU General Public License for more details.
+
+ * You should have received a copy of the GNU General Public License
+ * along with this program.  If not, see <http://www.gnu.org/licenses/>.
+ */
+?>
+Version 0.0.3 July 2013
++ -> Joomla 3.+ support.
+^ -> Add configuration css now with j2.5 and 3.+ support.
+^ -> Update configuration spacers to use language strings.
++ -> Added Area 51 to the option list.
+
+Version 0.0.2 November 2012
++ -> Added vote for us link in module description.
+^ -> Changed CSS file references.
+
+Version 0.0.1 November 2012
+! Initial release
+
+** Languages **
+en-GB 
+
+* -> Security Fix
+# -> Bug Fix
+$ -> Language fix or change
++ -> Addition
+^ -> Change
+- -> Removed
+! -> Note
