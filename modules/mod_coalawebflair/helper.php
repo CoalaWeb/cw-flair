@@ -77,7 +77,7 @@ class CoalawebFlairHelper {
     function getMathematicsFlair($maId, $maPname, $maTheme) {
         $output[] = '<div class="cwf-profile">';
         $output[] = '<a href="http://math.stackexchange.com/users/' . $maId . '/' . $maPname . '" target="_blank">';
-        $output[] = '<img src="http://math.stackexchange.com/users/flair/' . $maId . '.png?theme=' . $maTheme . '" width="208" height="58" alt="' . $maPname . JText::sprintf("MOD_COALAWEBFLAIR_MATHEMATICS_ALT") . '" title="' . $maPname . JText::sprintf("MOD_COALAWEBFLAIR_MATHEMATICS_ALT") . '">';
+        $output[] = '<img src="http://math.stackexchange.com/users/flair/' . $maId . '.png?theme=' . $maTheme . '" width="208" height="58" alt="' . $maPname . JText::sprintf("MOD_CWFLAIR_MATHEMATICS_ALT") . '" title="' . $maPname . JText::sprintf("MOD_CWFLAIR_MATHEMATICS_ALT") . '">';
         $output[] = '</a>';
         $output[] = '</div>';
         return implode("\n", $output);
