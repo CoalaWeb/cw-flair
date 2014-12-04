@@ -1,4 +1,5 @@
-<?php defined('_JEXEC') or die('Restricted access');
+<?php
+defined('_JEXEC') or die('Restricted access');
 /**
  * @package             Joomla
  * @subpackage          CoalaWeb Flair Module
@@ -14,7 +15,7 @@
  * (at your option) any later version.
 
  * This program is distributed in the hope that it will be useful,
-     * but WITHOUT ANY WARRANTY; without even the implied warranty of
+ * but WITHOUT ANY WARRANTY; without even the implied warranty of
  * MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
  * GNU General Public License for more details.
 
@@ -24,34 +25,40 @@
 ?>
 <div class="cw-flair-mod" id="<?php echo $params->get('module_unique_id'); ?>">
     <?php if ($layout) : ?>
-        <?php echo mod_coalawebflairHelper::getStackExchangeFlair($combinedId, $combinedPname); ?>
+        <?php echo $helpFunc->getStackExchangeFlair($combinedId, $combinedPname); ?>
     <?php else : ?>
         <?php if ($auDisplay) : ?>
-            <?php echo mod_coalawebflairHelper::getAskUbuntuFlair($auId, $auPname, $auTheme); ?>
+            <?php echo $helpFunc->getAskUbuntuFlair($auId, $auPname, $auTheme); ?>
         <?php endif; ?>
         <?php if ($adDisplay) : ?>
-            <?php echo mod_coalawebflairHelper::getAskDifferentFlair($adId, $adPname, $adTheme); ?>
+            <?php echo $helpFunc->getAskDifferentFlair($adId, $adPname, $adTheme); ?>
         <?php endif; ?>
         <?php if ($arDisplay) : ?>
-            <?php echo mod_coalawebflairHelper::getArqadeFlair($arId, $arPname, $arTheme); ?>
+            <?php echo $helpFunc->getArqadeFlair($arId, $arPname, $arTheme); ?>
         <?php endif; ?>
         <?php if ($maDisplay) : ?>
-            <?php echo mod_coalawebflairHelper::getMathematicsFlair($maId, $maPname, $maTheme); ?>
+            <?php echo $helpFunc->getMathematicsFlair($maId, $maPname, $maTheme); ?>
         <?php endif; ?>
         <?php if ($soDisplay) : ?>
-            <?php echo mod_coalawebflairHelper::getStackOverflowFlair($soId, $soPname, $soTheme); ?>
+            <?php echo $helpFunc->getStackOverflowFlair($soId, $soPname, $soTheme); ?>
         <?php endif; ?>
         <?php if ($suDisplay) : ?>
-            <?php echo mod_coalawebflairHelper::getSuperUserFlair($suId, $suPname, $suTheme); ?>
+            <?php echo $helpFunc->getSuperUserFlair($suId, $suPname, $suTheme); ?>
         <?php endif; ?>
         <?php if ($areaDisplay) : ?>
-            <?php echo mod_coalawebflairHelper::getAreaFlair($areaId, $areaPname, $areaTheme); ?>
+            <?php echo $helpFunc->getAreaFlair($areaId, $areaPname, $areaTheme); ?>
+        <?php endif; ?>
+        <?php if ($sfDisplay) : ?>
+            <?php echo $helpFunc->getServerFaultFlair($sfId, $sfPname, $sfTheme); ?>
+        <?php endif; ?>
+        <?php if ($elDisplay) : ?>
+            <?php echo $helpFunc->getEnglishLanguageFlair($elId, $elPname, $elTheme); ?>
         <?php endif; ?>
     <?php endif; ?>
-<?php if ($copy) : ?>
-	<span class="cw-flair-mod-copyrht">
+    <?php if ($copy) : ?>
+        <span class="cw-flair-mod-copyrht">
             <?php echo $powered ?> <a target="_blank" title="CoalaWeb" href="http://coalaweb.com">CoalaWeb</a>
         </span>
-<?php endif; ?>
-        
+    <?php endif; ?>
+
 </div>

@@ -1,4 +1,7 @@
-<?php defined( '_JEXEC' ) or die( 'Restricted access' );
+<?php
+
+defined('_JEXEC') or die('Restricted access');
+
 /**
  * @package             Joomla
  * @subpackage          Coala Web Flair Module
@@ -21,73 +24,99 @@
  * You should have received a copy of the GNU General Public License
  * along with this program.  If not, see <http://www.gnu.org/licenses/>.
  */
+class CoalawebFlairHelper {
+    /* Combined Flair */
 
-class mod_coalawebflairHelper {
-//Combined Flair
-    public static function getStackExchangeFlair($combinedId, $combinedPname){
-            
-        return
-                '<a href="http://stackexchange.com/users/'.$combinedId.'/'.$combinedPname.'" target="_blank">
-                    <img src="http://stackexchange.com/users/flair/'.$combinedId.'.png" width="208" height="58" alt="'. $combinedPname . JText::sprintf("MOD_COALAWEBFLAIR_COMBINED_ALT") . '" title="'. $combinedPname . JText::sprintf("MOD_COALAWEBFLAIR_COMBINED_ALT") . '" />
-                </a>';
+    function getStackExchangeFlair($combinedId, $combinedPname) {
+        $output[] = '<div class="cwf-profile">';
+        $output[] = '<a href="http://stackexchange.com/users/' . $combinedId . '/' . $combinedPname . '" target="_blank">';
+        $output[] = '<img src="http://stackexchange.com/users/flair/' . $combinedId . '.png" width="208" height="58" alt="' . $combinedPname . JText::sprintf("MOD_CWFLAIR_COMBINED_ALT") . '" title="' . $combinedPname . JText::sprintf("MOD_CWFLAIR_COMBINED_ALT") . '" />';
+        $output[] = '</a>';
+        $output[] = '</div>';
+        return implode("\n", $output);
     }
-//Individual Flair Accounts
-    public static function getStackOverflowFlair($soId, $soPname, $soTheme){
-            
-        return
-                '<a href="http://stackoverflow.com/users/'.$soId.'/'.$soPname.'" target="_blank">
-                    <img src="http://stackoverflow.com/users/flair/'.$soId.'.png?theme='. $soTheme .'" width="208" height="58" alt="'. $soPname . JText::sprintf("MOD_COALAWEBFLAIR_STACKOVERFLOW_ALT") . '" title="'. $soPname . JText::sprintf("MOD_COALAWEBFLAIR_STACKOVERFLOW_ALT") . '" />
-                </a>';
+
+    /* Individual Flair Accounts */
+
+    function getStackOverflowFlair($soId, $soPname, $soTheme) {
+        $output[] = '<div class="cwf-profile">';
+        $output[] = '<a href="http://stackoverflow.com/users/' . $soId . '/' . $soPname . '" target="_blank">';
+        $output[] = '<img src="http://stackoverflow.com/users/flair/' . $soId . '.png?theme=' . $soTheme . '" width="208" height="58" alt="' . $soPname . JText::sprintf("MOD_CWFLAIR_STACKOVERFLOW_ALT") . '" title="' . $soPname . JText::sprintf("MOD_CWFLAIR_STACKOVERFLOW_ALT") . '" />';
+        $output[] = '</a>';
+        $output[] = '</div>';
+        return implode("\n", $output);
     }
-    
-    public static function getAskUbuntuFlair($auId, $auPname, $auTheme){
-            
-        return
-                '<a href="http://askubuntu.com/users/'.$auId.'/'.$auPname.'" target="_blank">
-                    <img src="http://askubuntu.com/users/flair/'.$auId.'.png?theme='. $auTheme .'" width="208" height="58" alt="'. $auPname . JText::sprintf("MOD_COALAWEBFLAIR_ASKUBUNTU_ALT") . '" title="' .$auPname . JText::sprintf("MOD_COALAWEBFLAIR_ASKUBUNTU_ALT") . '">
-                </a>';
+
+    function getAskUbuntuFlair($auId, $auPname, $auTheme) {
+        $output[] = '<div class="cwf-profile">';
+        $output[] = '<a href="http://askubuntu.com/users/' . $auId . '/' . $auPname . '" target="_blank">';
+        $output[] = '<img src="http://askubuntu.com/users/flair/' . $auId . '.png?theme=' . $auTheme . '" width="208" height="58" alt="' . $auPname . JText::sprintf("MOD_CWFLAIR_ASKUBUNTU_ALT") . '" title="' . $auPname . JText::sprintf("MOD_CWFLAIR_ASKUBUNTU_ALT") . '">';
+        $output[] = '</a>';
+        $output[] = '</div>';
+        return implode("\n", $output);
     }
-    
-        public static function getSuperUserFlair($suId, $suPname, $suTheme){
-            
-        return
-                '<a href="http://superuser.com/users/'.$suId.'/'.$suPname.'" target="_blank">
-                    <img src="http://superuser.com/users/flair/'.$suId.'.png?theme='. $suTheme .'" width="208" height="58" alt="'. $suPname . JText::sprintf("MOD_COALAWEBFLAIR_SUPERUSER_ALT") . '" title="' .$suPname . JText::sprintf("MOD_COALAWEBFLAIR_SUPERUSER_ALT") . '">
-                </a>';
+
+    function getSuperUserFlair($suId, $suPname, $suTheme) {
+        $output[] = '<div class="cwf-profile">';
+        $output[] = '<a href="http://superuser.com/users/' . $suId . '/' . $suPname . '" target="_blank">';
+        $output[] = '<img src="http://superuser.com/users/flair/' . $suId . '.png?theme=' . $suTheme . '" width="208" height="58" alt="' . $suPname . JText::sprintf("MOD_CWFLAIR_SUPERUSER_ALT") . '" title="' . $suPname . JText::sprintf("MOD_CWFLAIR_SUPERUSER_ALT") . '">';
+        $output[] = '</a>';
+        $output[] = '</div>';
+        return implode("\n", $output);
     }
-    
-        public static function getArqadeFlair($arId, $arPname, $arTheme){
-            
-        return
-                '<a href="http://gaming.stackexchange.com/users/'.$arId.'/'.$arPname.'" target="_blank">
-                    <img src="http://gaming.stackexchange.com/users/flair/'.$arId.'.png?theme='. $arTheme .'" width="208" height="58" alt="'. $arPname . JText::sprintf("MOD_COALAWEBFLAIR_ARQADE_ALT") . '" title="' .$arPname . JText::sprintf("MOD_COALAWEBFLAIR_ARQADE_ALT") . '">
-                </a>';
+
+    function getArqadeFlair($arId, $arPname, $arTheme) {
+        $output[] = '<div class="cwf-profile">';
+        $output[] = '<a href="http://gaming.stackexchange.com/users/' . $arId . '/' . $arPname . '" target="_blank">';
+        $output[] = '<img src="http://gaming.stackexchange.com/users/flair/' . $arId . '.png?theme=' . $arTheme . '" width="208" height="58" alt="' . $arPname . JText::sprintf("MOD_CWFLAIR_ARQADE_ALT") . '" title="' . $arPname . JText::sprintf("MOD_CWFLAIR_ARQADE_ALT") . '">';
+        $output[] = '</a>';
+        $output[] = '</div>';
+        return implode("\n", $output);
     }
-    
-        public static function getMathematicsFlair($maId, $maPname, $maTheme){
-            
-        return
-                '<a href="http://math.stackexchange.com/users/'.$maId.'/'.$maPname.'" target="_blank">
-                    <img src="http://math.stackexchange.com/users/flair/'.$maId.'.png?theme='. $maTheme .'" width="208" height="58" alt="'. $maPname . JText::sprintf("MOD_COALAWEBFLAIR_MATHEMATICS_ALT") . '" title="' .$maPname . JText::sprintf("MOD_COALAWEBFLAIR_MATHEMATICS_ALT") . '">
-                </a>';
+
+    function getMathematicsFlair($maId, $maPname, $maTheme) {
+        $output[] = '<div class="cwf-profile">';
+        $output[] = '<a href="http://math.stackexchange.com/users/' . $maId . '/' . $maPname . '" target="_blank">';
+        $output[] = '<img src="http://math.stackexchange.com/users/flair/' . $maId . '.png?theme=' . $maTheme . '" width="208" height="58" alt="' . $maPname . JText::sprintf("MOD_COALAWEBFLAIR_MATHEMATICS_ALT") . '" title="' . $maPname . JText::sprintf("MOD_COALAWEBFLAIR_MATHEMATICS_ALT") . '">';
+        $output[] = '</a>';
+        $output[] = '</div>';
+        return implode("\n", $output);
     }
-    
-        public static function getAskDifferentFlair($adId, $adPname, $adTheme){
-            
-        return
-                '<a href="http://apple.stackexchange.com/users/'.$adId.'/'.$adPname.'" target="_blank">
-                    <img src="http://apple.stackexchange.com/users/flair/'.$adId.'.png?theme='. $adTheme .'" width="208" height="58" alt="'. $adPname . JText::sprintf("MOD_COALAWEBFLAIR_ASKDIFFERENT_ALT") . '" title="' .$adPname . JText::sprintf("MOD_COALAWEBFLAIR_ASKDIFFERENT_ALT") . '">
-                </a>';
+
+    function getAskDifferentFlair($adId, $adPname, $adTheme) {
+        $output[] = '<div class="cwf-profile">';
+        $output[] = '<a href="http://apple.stackexchange.com/users/' . $adId . '/' . $adPname . '" target="_blank">';
+        $output[] = '<img src="http://apple.stackexchange.com/users/flair/' . $adId . '.png?theme=' . $adTheme . '" width="208" height="58" alt="' . $adPname . JText::sprintf("MOD_CWFLAIR_ASKDIFFERENT_ALT") . '" title="' . $adPname . JText::sprintf("MOD_CWFLAIR_ASKDIFFERENT_ALT") . '">';
+        $output[] = '</a>';
+        $output[] = '</div>';
+        return implode("\n", $output);
     }
-    
-        public static function getAreaFlair($areaId, $areaPname, $areaTheme){
-            
-        return
-                '<a href="http://area51.stackexchange.com/users/'.$areaId.'/'.$areaPname.'" target="_blank">
-                    <img src="http://area51.stackexchange.com/users/flair/'.$areaId.'.png?theme='. $areaTheme .'" width="208" height="58" alt="'. $areaPname . JText::sprintf("MOD_COALAWEBFLAIR_AREA_ALT") . '" title="' .$areaPname . JText::sprintf("MOD_COALAWEBFLAIR_AREA_ALT") . '">
-                </a>';
+
+    function getAreaFlair($areaId, $areaPname, $areaTheme) {
+        $output[] = '<div class="cwf-profile">';
+        $output[] = '<a href="http://area51.stackexchange.com/users/' . $areaId . '/' . $areaPname . '" target="_blank">';
+        $output[] = '<img src="http://area51.stackexchange.com/users/flair/' . $areaId . '.png?theme=' . $areaTheme . '" width="208" height="58" alt="' . $areaPname . JText::sprintf("MOD_CWFLAIR_AREA_ALT") . '" title="' . $areaPname . JText::sprintf("MOD_CWFLAIR_AREA_ALT") . '">';
+        $output[] = '</a>';
+        $output[] = '</div>';
+        return implode("\n", $output);
+    }
+
+    function getServerFaultFlair($sfId, $sfPname, $sfTheme) {
+        $output[] = '<div class="cwf-profile">';
+        $output[] = '<a href="http://serverfault.com/users/' . $sfId . '/' . $sfPname . '" target="_blank">';
+        $output[] = '<img src="http://serverfault.com/users/flair/' . $sfId . '.png?theme=' . $sfTheme . '" width="208" height="58" alt="' . $sfPname . JText::sprintf("MOD_CWFLAIR_SERVERFAULT_ALT") . '" title="' . $sfPname . JText::sprintf("MOD_CWFLAIR_SERVERFAULT_ALT") . '">';
+        $output[] = '</a>';
+        $output[] = '</div>';
+        return implode("\n", $output);
+    }
+
+    function getEnglishLanguageFlair($elId, $elPname, $elTheme) {
+        $output[] = '<div class="cwf-profile">';
+        $output[] = '<a href="http://english.stackexchange.com/users/' . $elId . '/' . $elPname . '" target="_blank">';
+        $output[] = '<img src="http://english.stackexchange.com/users/flair/' . $elId . '.png?theme=' . $elTheme . '" width="208" height="58" alt="' . $elPname . JText::sprintf("MOD_CWFLAIR_ENGLISHLANGUAGE_ALT") . '" title="' . $elPname . JText::sprintf("MOD_CWFLAIR_ENGLISHLANGUAGE_ALT") . '">';
+        $output[] = '</a>';
+        $output[] = '</div>';
+        return implode("\n", $output);
     }
 
 }
-
-?>

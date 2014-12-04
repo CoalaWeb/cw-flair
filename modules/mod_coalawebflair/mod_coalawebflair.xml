@@ -1,13 +1,13 @@
 <?xml version="1.0" encoding="utf-8"?>
 <extension type="module" version="2.5" client="site" method="upgrade">
     <name>MOD_COALAWEBFLAIR</name>
-    <creationDate>July 2013</creationDate>
+    <creationDate>2014-12-10</creationDate>
     <author>Steven Palmer</author>
     <authorEmail>support@coalaweb.com</authorEmail>
     <authorUrl>http://coalaweb.com</authorUrl>
-    <copyright>Copyright (c) 2012 Steven Palmer All rights reserved</copyright>
+    <copyright>Copyright (c) 2014 Steven Palmer All rights reserved</copyright>
     <license>http://www.gnu.org/copyleft/gpl.html GNU/GPL</license>
-    <version>0.0.3</version>
+    <version>0.0.4</version>
     <description>MOD_COALAWEBFLAIR_DESCRIPTION</description>
         
     <languages folder="language">
@@ -19,47 +19,48 @@
         <filename module="mod_coalawebflair">mod_coalawebflair.php</filename>
         <filename>index.html</filename>
         <filename>helper.php</filename>
+        <filename>version.php</filename>
         <folder>tmpl</folder>
         <folder>assets</folder>
-        <folder>fields</folder>
         <folder>language</folder>
     </files>
         
-    <media destination="mod_coalawebflair" folder="media">
+    <media destination="coalawebflair/modules/flair" folder="media">
         <filename>index.html</filename>
         <folder>css</folder>
-        <folder>images</folder>
     </media>
-        
     <!-- HELP FILE -->
     <help url="MOD_COALAWEBFLAIR_HELP_URL" />
         
     <!-- UPDATESERVER DEFINITION -->
     <updateservers>
-        <server type="extension" priority="1" name="CoalaWeb Flair Module Update"><![CDATA[http://coalaweb.com/?option=com_ars&view=update&task=stream&format=xml&id=5&dummy=/extension.xml]]></server>
+        <server type="extension" priority="1" name="CoalaWeb Flair Update">http://cdn.coalaweb.com/updates/cw-flair-core.xml</server>
     </updateservers>
+    
+        <!-- Installation / Uninstallation Script File -->
+    <scriptfile>script.coalawebflair.php</scriptfile>
         
     <config>
         <fields 
             name="params" 
-            addfieldpath="/modules/mod_coalawebflair/fields">
+            addfieldpath="plugins/system/cwgears/fields">
                     
             <fieldset 
                 name="GENERAL"
                 label="JGLOBAL_GENERAL_OPTIONS" >
                         
                 <field 
-                    type="asset" 
-                    path="/modules/mod_coalawebflair/fields/" />
+                    name="css_import" 
+                    type="css"/>
 
                 <field 
                     name="layout" 
                     type="list" 
                     default="1" 
-                    label="MOD_COALAWEBFLAIR_DISPLAY_TYPE"
-                    description="MOD_COALAWEBFLAIR_DISPLAY_TYPE_DESC">
-                    <option value="0">MOD_COALAWEBFLAIR_DISPLAY_TYPE_OPT1</option>
-                    <option value="1">MOD_COALAWEBFLAIR_DISPLAY_TYPE_OPT2</option>
+                    label="MOD_CWFLAIR_DISPLAY_TYPE"
+                    description="MOD_CWFLAIR_DISPLAY_TYPE_DESC">
+                    <option value="0">MOD_CWFLAIR_DISPLAY_TYPE_OPT1</option>
+                    <option value="1">MOD_CWFLAIR_DISPLAY_TYPE_OPT2</option>
                 </field>
 
                 <field 
@@ -67,27 +68,27 @@
                     type="text" 
                     size="10"
                     default="294342" 
-                    label="MOD_COALAWEBFLAIR_COMBINEDID"
-                    description="MOD_COALAWEBFLAIR_COMBINEDID_DESC" />
+                    label="MOD_CWFLAIR_COMBINEDID"
+                    description="MOD_CWFLAIR_COMBINEDID_DESC" />
                                 
                 <field 
                     name="combined_pname" 
                     type="text" 
                     size="20" 
                     default="CoalaWeb"
-                    label="MOD_COALAWEBFLAIR_COMBINED_NAME"
-                    description="MOD_COALAWEBFLAIR_COMBINED_NAME_DESC" />
+                    label="MOD_CWFLAIR_COMBINED_NAME"
+                    description="MOD_CWFLAIR_COMBINED_NAME_DESC" />
                                 
             </fieldset>
                         
             <fieldset 
                 name="INDIVIDUAL_A"
-                label="MOD_COALAWEBFLAIR_FIELDSET_IND_A" >
+                label="MOD_CWFLAIR_FIELDSET_IND_A" >
                             
                 <field
                     type="spacer" 
                     name="au_spacer" 
-                    label="MOD_COALAWEBFLAIR_TITLE_ASKUBUNTU"
+                    label="MOD_CWFLAIR_TITLE_ASKUBUNTU"
                     class="cw_label" />
                                     
                 <field 
@@ -95,8 +96,8 @@
                     type="radio" 
                     class="btn-group"  
                     default="0"
-                    label="MOD_COALAWEBFLAIR_ASKUBUNTU_DISPLAY" 
-                    description="MOD_COALAWEBFLAIR_ASKUBUNTU_DISPLAY_DESC">
+                    label="MOD_CWFLAIR_ASKUBUNTU_DISPLAY" 
+                    description="MOD_CWFLAIR_ASKUBUNTU_DISPLAY_DESC">
                     <option value="1">CW_YES</option>
                     <option value="0">CW_NO</option>
                 </field>
@@ -106,33 +107,33 @@
                     type="text" 
                     size="10" 
                     default=""
-                    label="MOD_COALAWEBFLAIR_ASKUBUNTU_ID"
-                    description="MOD_COALAWEBFLAIR_ASKUBUNTU_ID_DESC" />
+                    label="MOD_CWFLAIR_ASKUBUNTU_ID"
+                    description="MOD_CWFLAIR_ASKUBUNTU_ID_DESC" />
                                 
                 <field 
                     name="au_pname" 
                     type="text" 
                     size="20" 
                     default=""
-                    label="MOD_COALAWEBFLAIR_ASKUBUNTU_NAME"
-                    description="MOD_COALAWEBFLAIR_ASKUBUNTU_NAME_DESC" />
+                    label="MOD_CWFLAIR_ASKUBUNTU_NAME"
+                    description="MOD_CWFLAIR_ASKUBUNTU_NAME_DESC" />
                                 
                 <field 
                     name="au_theme" 
                     type="list" 
                     default="default"
-                    label="MOD_COALAWEBFLAIR_ASKUBUNTU_THEME" 
-                    description="MOD_COALAWEBFLAIR_ASKUBUNTU_THEME_DESC">
-                    <option value="default">Default</option>
-                    <option value="clean">Clean</option>
-                    <option value="dark">Dark</option>
-                    <option value="hotdog">Hot Dog</option>
+                    label="MOD_CWFLAIR_ASKUBUNTU_THEME" 
+                    description="MOD_CWFLAIR_ASKUBUNTU_THEME_DESC">
+                    <option value="default">MOD_CWFLAIR_THEME_OPT1</option>
+                    <option value="clean">MOD_CWFLAIR_THEME_OPT2</option>
+                    <option value="dark">MOD_CWFLAIR_THEME_OPT3</option>
+                    <option value="hotdog">MOD_CWFLAIR_THEME_OPT4</option>
                 </field>
                                 
                 <field 
                     type="spacer" 
                     name="area_spacer" 
-                    label="MOD_COALAWEBFLAIR_TITLE_AREA"
+                    label="MOD_CWFLAIR_TITLE_AREA"
                     class="cw_label" />
                                     
                 <field 
@@ -140,8 +141,8 @@
                     type="radio" 
                     class="btn-group"
                     default="0"
-                    label="MOD_COALAWEBFLAIR_AREA_DISPLAY" 
-                    description="MOD_COALAWEBFLAIR_AREA_DISPLAY_DESC">
+                    label="MOD_CWFLAIR_AREA_DISPLAY" 
+                    description="MOD_CWFLAIR_AREA_DISPLAY_DESC">
                     <option value="1">CW_YES</option>
                     <option value="0">CW_NO</option>
                 </field>
@@ -151,33 +152,33 @@
                     type="text" 
                     size="10" 
                     default=""
-                    label="MOD_COALAWEBFLAIR_AREA_ID"
-                    description="MOD_COALAWEBFLAIR_AREA_ID_DESC" />
+                    label="MOD_CWFLAIR_AREA_ID"
+                    description="MOD_CWFLAIR_AREA_ID_DESC" />
                                 
                 <field 
                     name="area_pname" 
                     type="text" 
                     size="20" 
                     default=""
-                    label="MOD_COALAWEBFLAIR_AREA_NAME"
-                    description="MOD_COALAWEBFLAIR_AREA_NAME_DESC" />
+                    label="MOD_CWFLAIR_AREA_NAME"
+                    description="MOD_CWFLAIR_AREA_NAME_DESC" />
                                 
                 <field 
                     name="area_theme" 
                     type="list" 
                     default="default"
-                    label="MOD_COALAWEBFLAIR_AREA_THEME" 
-                    description="MOD_COALAWEBFLAIR_AREA_THEME_DESC">
-                    <option value="default">Default</option>
-                    <option value="clean">Clean</option>
-                    <option value="dark">Dark</option>
-                    <option value="hotdog">Hot Dog</option>
+                    label="MOD_CWFLAIR_AREA_THEME" 
+                    description="MOD_CWFLAIR_AREA_THEME_DESC">
+                    <option value="default">MOD_CWFLAIR_THEME_OPT1</option>
+                    <option value="clean">MOD_CWFLAIR_THEME_OPT2</option>
+                    <option value="dark">MOD_CWFLAIR_THEME_OPT3</option>
+                    <option value="hotdog">MOD_CWFLAIR_THEME_OPT4</option>
                 </field>
                                 
                 <field 
                     type="spacer" 
                     name="ar_spacer" 
-                    label="MOD_COALAWEBFLAIR_TITLE_ARQADE"
+                    label="MOD_CWFLAIR_TITLE_ARQADE"
                     class="cw_label" />
                                     
                 <field 
@@ -185,8 +186,8 @@
                     type="radio" 
                     class="btn-group"
                     default="0"
-                    label="MOD_COALAWEBFLAIR_ARQADE_DISPLAY" 
-                    description="MOD_COALAWEBFLAIR_ARQADE_DISPLAY_DESC">
+                    label="MOD_CWFLAIR_ARQADE_DISPLAY" 
+                    description="MOD_CWFLAIR_ARQADE_DISPLAY_DESC">
                     <option value="1">CW_YES</option>
                     <option value="0">CW_NO</option>
                 </field>
@@ -196,33 +197,33 @@
                     type="text" 
                     size="10" 
                     default=""
-                    label="MOD_COALAWEBFLAIR_ARQADE_ID"
-                    description="MOD_COALAWEBFLAIR_ARQADE_ID_DESC" />
+                    label="MOD_CWFLAIR_ARQADE_ID"
+                    description="MOD_CWFLAIR_ARQADE_ID_DESC" />
                                 
                 <field 
                     name="ar_pname" 
                     type="text" 
                     size="20" 
                     default=""
-                    label="MOD_COALAWEBFLAIR_ARQADE_NAME"
-                    description="MOD_COALAWEBFLAIR_ARQADE_NAME_DESC" />
+                    label="MOD_CWFLAIR_ARQADE_NAME"
+                    description="MOD_CWFLAIR_ARQADE_NAME_DESC" />
                                 
                 <field 
                     name="ar_theme" 
                     type="list" 
                     default="default"
-                    label="MOD_COALAWEBFLAIR_ARQADE_THEME" 
-                    description="MOD_COALAWEBFLAIR_ARQADE_THEME_DESC">
-                    <option value="default">Default</option>
-                    <option value="clean">Clean</option>
-                    <option value="dark">Dark</option>
-                    <option value="hotdog">Hot Dog</option>
+                    label="MOD_CWFLAIR_ARQADE_THEME" 
+                    description="MOD_CWFLAIR_ARQADE_THEME_DESC">
+                    <option value="default">MOD_CWFLAIR_THEME_OPT1</option>
+                    <option value="clean">MOD_CWFLAIR_THEME_OPT2</option>
+                    <option value="dark">MOD_CWFLAIR_THEME_OPT3</option>
+                    <option value="hotdog">MOD_CWFLAIR_THEME_OPT4</option>
                 </field>
                                 
                 <field 
                     type="spacer" 
                     name="ad_spacer" 
-                    label="MOD_COALAWEBFLAIR_TITLE_ASKDIFFERENT"
+                    label="MOD_CWFLAIR_TITLE_ASKDIFFERENT"
                     class="cw_label" />
                                     
                 <field 
@@ -230,8 +231,8 @@
                     type="radio" 
                     class="btn-group"
                     default="0"
-                    label="MOD_COALAWEBFLAIR_ASKDIFFERENT_DISPLAY" 
-                    description="MOD_COALAWEBFLAIR_ASKDIFFERENT_DISPLAY_DESC">
+                    label="MOD_CWFLAIR_ASKDIFFERENT_DISPLAY" 
+                    description="MOD_CWFLAIR_ASKDIFFERENT_DISPLAY_DESC">
                     <option value="1">CW_YES</option>
                     <option value="0">CW_NO</option>
                 </field>
@@ -241,39 +242,90 @@
                     type="text" 
                     size="10" 
                     default=""
-                    label="MOD_COALAWEBFLAIR_ASKDIFFERENT_ID"
-                    description="MOD_COALAWEBFLAIR_ASKDIFFERENT_ID_DESC" />
+                    label="MOD_CWFLAIR_ASKDIFFERENT_ID"
+                    description="MOD_CWFLAIR_ASKDIFFERENT_ID_DESC" />
                                 
                 <field 
                     name="ad_pname" 
                     type="text" 
                     size="20" 
                     default=""
-                    label="MOD_COALAWEBFLAIR_ASKDIFFERENT_NAME"
-                    description="MOD_COALAWEBFLAIR_ASKDIFFERENT_NAME_DESC" />
+                    label="MOD_CWFLAIR_ASKDIFFERENT_NAME"
+                    description="MOD_CWFLAIR_ASKDIFFERENT_NAME_DESC" />
                                 
                 <field 
                     name="ad_theme" 
                     type="list" 
                     default="default"
-                    label="MOD_COALAWEBFLAIR_ASKDIFFERENT_THEME" 
-                    description="MOD_COALAWEBFLAIR_ASKDIFFERENT_THEME_DESC">
-                    <option value="default">Default</option>
-                    <option value="clean">Clean</option>
-                    <option value="dark">Dark</option>
-                    <option value="hotdog">Hot Dog</option>
+                    label="MOD_CWFLAIR_ASKDIFFERENT_THEME" 
+                    description="MOD_CWFLAIR_ASKDIFFERENT_THEME_DESC">
+                    <option value="default">MOD_CWFLAIR_THEME_OPT1</option>
+                    <option value="clean">MOD_CWFLAIR_THEME_OPT2</option>
+                    <option value="dark">MOD_CWFLAIR_THEME_OPT3</option>
+                    <option value="hotdog">MOD_CWFLAIR_THEME_OPT4</option>
                 </field>
                                 
+            </fieldset>
+            
+            <fieldset 
+                name="INDIVIDUAL_E"
+                label="MOD_CWFLAIR_FIELDSET_IND_E" >
+                
+                 <field 
+                    type="spacer" 
+                    name="el_spacer" 
+                    label="MOD_CWFLAIR_TITLE_ENGLISHLANGUAGE"
+                    class="cw_label" />
+                                
+                <field 
+                    name="el_display" 
+                    type="radio" 
+                    class="btn-group"
+                    default="0"
+                    label="MOD_CWFLAIR_ENGLISHLANGUAGE_DISPLAY" 
+                    description="MOD_CWFLAIR_ENGLISHLANGUAGE_DISPLAY_DESC">
+                    <option value="1">CW_YES</option>
+                    <option value="0">CW_NO</option>
+                </field>
+                        
+                <field 
+                    name="el_id" 
+                    type="text" 
+                    size="10" 
+                    default=""
+                    label="MOD_CWFLAIR_ENGLISHLANGUAGE_ID"
+                    description="MOD_CWFLAIR_ENGLISHLANGUAGE_ID_DESC" />
+                                
+                <field 
+                    name="el_pname" 
+                    type="text" 
+                    size="20" 
+                    default=""
+                    label="MOD_CWFLAIR_ENGLISHLANGUAGE_NAME"
+                    description="MOD_CWFLAIR_ENGLISHLANGUAGE_NAME_DESC" />
+                                
+                <field 
+                    name="el_theme" 
+                    type="list" 
+                    default="default"
+                    label="MOD_CWFLAIR_ENGLISHLANGUAGE_THEME" 
+                    description="MOD_CWFLAIR_ENGLISHLANGUAGE_THEME_DESC">
+                    <option value="default">MOD_CWFLAIR_THEME_OPT1</option>
+                    <option value="clean">MOD_CWFLAIR_THEME_OPT2</option>
+                    <option value="dark">MOD_CWFLAIR_THEME_OPT3</option>
+                    <option value="hotdog">MOD_CWFLAIR_THEME_OPT4</option>
+                </field>
+                
             </fieldset>
                         
             <fieldset 
                 name="INDIVIDUAL_M"
-                label="MOD_COALAWEBFLAIR_FIELDSET_IND_M" >
+                label="MOD_CWFLAIR_FIELDSET_IND_M" >
 
                 <field 
                     type="spacer" 
                     name="ma_spacer" 
-                    label="MOD_COALAWEBFLAIR_TITLE_MATHEMATICS"
+                    label="MOD_CWFLAIR_TITLE_MATHEMATICS"
                     class="cw_label" />
                                 
                 <field 
@@ -281,8 +333,8 @@
                     type="radio" 
                     class="btn-group"
                     default="0"
-                    label="MOD_COALAWEBFLAIR_MATHEMATICS_DISPLAY" 
-                    description="MOD_COALAWEBFLAIR_MATHEMATICS_DISPLAY_DESC">
+                    label="MOD_CWFLAIR_MATHEMATICS_DISPLAY" 
+                    description="MOD_CWFLAIR_MATHEMATICS_DISPLAY_DESC">
                     <option value="1">CW_YES</option>
                     <option value="0">CW_NO</option>
                 </field>
@@ -292,39 +344,84 @@
                     type="text" 
                     size="10" 
                     default=""
-                    label="MOD_COALAWEBFLAIR_MATHEMATICS_ID"
-                    description="MOD_COALAWEBFLAIR_MATHEMATICS_ID_DESC" />
+                    label="MOD_CWFLAIR_MATHEMATICS_ID"
+                    description="MOD_CWFLAIR_MATHEMATICS_ID_DESC" />
                                 
                 <field 
                     name="ma_pname" 
                     type="text" 
                     size="20" 
                     default=""
-                    label="MOD_COALAWEBFLAIR_MATHEMATICS_NAME"
-                    description="MOD_COALAWEBFLAIR_MATHEMATICS_NAME_DESC" />
+                    label="MOD_CWFLAIR_MATHEMATICS_NAME"
+                    description="MOD_CWFLAIR_MATHEMATICS_NAME_DESC" />
                                 
                 <field 
                     name="ma_theme" 
                     type="list" 
                     default="default"
-                    label="MOD_COALAWEBFLAIR_MATHEMATICS_THEME" 
-                    description="MOD_COALAWEBFLAIR_MATHEMATICS_THEME_DESC">
-                    <option value="default">Default</option>
-                    <option value="clean">Clean</option>
-                    <option value="dark">Dark</option>
-                    <option value="hotdog">Hot Dog</option>
+                    label="MOD_CWFLAIR_MATHEMATICS_THEME" 
+                    description="MOD_CWFLAIR_MATHEMATICS_THEME_DESC">
+                    <option value="default">MOD_CWFLAIR_THEME_OPT1</option>
+                    <option value="clean">MOD_CWFLAIR_THEME_OPT2</option>
+                    <option value="dark">MOD_CWFLAIR_THEME_OPT3</option>
+                    <option value="hotdog">MOD_CWFLAIR_THEME_OPT4</option>
                 </field>
 
             </fieldset>
                         
             <fieldset 
                 name="INDIVIDUAL_S"
-                label="MOD_COALAWEBFLAIR_FIELDSET_IND_S" >
+                label="MOD_CWFLAIR_FIELDSET_IND_S" >
 
+                   <field 
+                    type="spacer" 
+                    name="sf_spacer" 
+                    label="MOD_CWFLAIR_TITLE_SERVERFAULT"
+                    class="cw_label" />
+                                
+                <field 
+                    name="sf_display" 
+                    type="radio" 
+                    class="btn-group"
+                    default="0"
+                    label="MOD_CWFLAIR_SERVERFAULT_DISPLAY" 
+                    description="MOD_CWFLAIR_SERVERFAULT_DISPLAY_DESC">
+                    <option value="1">CW_YES</option>
+                    <option value="0">CW_NO</option>
+                </field>
+                        
+                <field 
+                    name="sf_id" 
+                    type="text" 
+                    size="10" 
+                    default=""
+                    label="MOD_CWFLAIR_SERVERFAULT_ID"
+                    description="MOD_CWFLAIR_SERVERFAULT_ID_DESC" />
+                                
+                <field 
+                    name="sf_pname" 
+                    type="text" 
+                    size="20" 
+                    default=""
+                    label="MOD_CWFLAIR_SERVERFAULT_NAME"
+                    description="MOD_CWFLAIR_SERVERFAULT_NAME_DESC" />
+                                
+                <field 
+                    name="sf_theme" 
+                    type="list" 
+                    default="default"
+                    label="MOD_CWFLAIR_SERVERFAULT_THEME" 
+                    description="MOD_CWFLAIR_SERVERFAULT_THEME_DESC">
+                    <option value="default">MOD_CWFLAIR_THEME_OPT1</option>
+                    <option value="clean">MOD_CWFLAIR_THEME_OPT2</option>
+                    <option value="dark">MOD_CWFLAIR_THEME_OPT3</option>
+                    <option value="hotdog">MOD_CWFLAIR_THEME_OPT4</option>
+                </field>
+                
                 <field 
                     type="spacer" 
                     name="so_spacer" 
-                    label="MOD_COALAWEBFLAIR_TITLE_STACKOVERFLOW"
+                    label="MOD_CWFLAIR_TITLE_STACKOVERFLOW"
                     class="cw_label" />
                                 
                 <field 
@@ -332,8 +429,8 @@
                     type="radio" 
                     class="btn-group"
                     default="0"
-                    label="MOD_COALAWEBFLAIR_STACKOVERFLOW_DISPLAY" 
-                    description="MOD_COALAWEBFLAIR_STACKOVERFLOW_DISPLAY_DESC">
+                    label="MOD_CWFLAIR_STACKOVERFLOW_DISPLAY" 
+                    description="MOD_CWFLAIR_STACKOVERFLOW_DISPLAY_DESC">
                     <option value="1">CW_YES</option>
                     <option value="0">CW_NO</option>
                 </field>
@@ -343,33 +440,33 @@
                     type="text" 
                     size="10" 
                     default=""
-                    label="MOD_COALAWEBFLAIR_STACKOVERFLOW_ID"
-                    description="MOD_COALAWEBFLAIR_STACKOVERFLOW_ID_DESC" />
+                    label="MOD_CWFLAIR_STACKOVERFLOW_ID"
+                    description="MOD_CWFLAIR_STACKOVERFLOW_ID_DESC" />
                                 
                 <field 
                     name="so_pname" 
                     type="text" 
                     size="20" 
                     default=""
-                    label="MOD_COALAWEBFLAIR_STACKOVERFLOW_NAME"
-                    description="MOD_COALAWEBFLAIR_STACKOVERFLOW_NAME_DESC" />
+                    label="MOD_CWFLAIR_STACKOVERFLOW_NAME"
+                    description="MOD_CWFLAIR_STACKOVERFLOW_NAME_DESC" />
                                 
                 <field 
                     name="so_theme" 
                     type="list" 
                     default="default"
-                    label="MOD_COALAWEBFLAIR_STACKOVERFLOW_THEME" 
-                    description="MOD_COALAWEBFLAIR_STACKOVERFLOW_THEME_DESC">
-                    <option value="default">Default</option>
-                    <option value="clean">Clean</option>
-                    <option value="dark">Dark</option>
-                    <option value="hotdog">Hot Dog</option>
+                    label="MOD_CWFLAIR_STACKOVERFLOW_THEME" 
+                    description="MOD_CWFLAIR_STACKOVERFLOW_THEME_DESC">
+                    <option value="default">MOD_CWFLAIR_THEME_OPT1</option>
+                    <option value="clean">MOD_CWFLAIR_THEME_OPT2</option>
+                    <option value="dark">MOD_CWFLAIR_THEME_OPT3</option>
+                    <option value="hotdog">MOD_CWFLAIR_THEME_OPT4</option>
                 </field>
                                 
                 <field 
                     type="spacer" 
                     name="su_spacer" 
-                    label="MOD_COALAWEBFLAIR_TITLE_SUPERUSER"
+                    label="MOD_CWFLAIR_TITLE_SUPERUSER"
                     class="cw_label" />
                                     
                 <field 
@@ -377,8 +474,8 @@
                     type="radio" 
                     class="btn-group" 
                     default="0"
-                    label="MOD_COALAWEBFLAIR_SUPERUSER_DISPLAY" 
-                    description="MOD_COALAWEBFLAIR_SUPERUSER_DISPLAY_DESC">
+                    label="MOD_CWFLAIR_SUPERUSER_DISPLAY" 
+                    description="MOD_CWFLAIR_SUPERUSER_DISPLAY_DESC">
                     <option value="1">CW_YES</option>
                     <option value="0">CW_NO</option>
                 </field>
@@ -388,27 +485,27 @@
                     type="text" 
                     size="10" 
                     default=""
-                    label="MOD_COALAWEBFLAIR_SUPERUSER_ID"
-                    description="MOD_COALAWEBFLAIR_SUPERUSER_ID_DESC" />
+                    label="MOD_CWFLAIR_SUPERUSER_ID"
+                    description="MOD_CWFLAIR_SUPERUSER_ID_DESC" />
                                 
                 <field 
                     name="su_pname" 
                     type="text" 
                     size="20" 
                     default=""
-                    label="MOD_COALAWEBFLAIR_SUPERUSER_NAME"
-                    description="MOD_COALAWEBFLAIR_SUPERUSER_NAME_DESC" />
+                    label="MOD_CWFLAIR_SUPERUSER_NAME"
+                    description="MOD_CWFLAIR_SUPERUSER_NAME_DESC" />
                                 
                 <field 
                     name="su_theme" 
                     type="list" 
                     default="default"
-                    label="MOD_COALAWEBFLAIR_SUPERUSER_THEME" 
-                    description="MOD_COALAWEBFLAIR_SUPERUSER_THEME_DESC">
-                    <option value="default">Default</option>
-                    <option value="clean">Clean</option>
-                    <option value="dark">Dark</option>
-                    <option value="hotdog">Hot Dog</option>
+                    label="MOD_CWFLAIR_SUPERUSER_THEME" 
+                    description="MOD_CWFLAIR_SUPERUSER_THEME_DESC">
+                    <option value="default">MOD_CWFLAIR_THEME_OPT1</option>
+                    <option value="clean">MOD_CWFLAIR_THEME_OPT2</option>
+                    <option value="dark">MOD_CWFLAIR_THEME_OPT3</option>
+                    <option value="hotdog">MOD_CWFLAIR_THEME_OPT4</option>
                 </field>
 
             </fieldset> 
@@ -419,8 +516,8 @@
                     name="module_unique_id" 
                     type="text" 
                     default="cwflair1" 
-                    label="MOD_COALAWEBFLAIR_MODID" 
-                    description="MOD_COALAWEBFLAIR_MODID_DESC" />
+                    label="MOD_CWFLAIR_MODID" 
+                    description="MOD_CWFLAIR_MODID_DESC" />
                         
                 <field 
                     name="moduleclass_sfx" 
@@ -449,8 +546,8 @@
                     type="radio" 
                     class="btn-group"  
                     default="1" 
-                    label="MOD_COALAWEBFLAIR_LOADCSS_LABEL" 
-                    description="MOD_COALAWEBFLAIR_LOADCSS_DESC">
+                    label="MOD_CWFLAIR_LOADCSS_LABEL" 
+                    description="MOD_CWFLAIR_LOADCSS_DESC">
                     <option value="0">CW_NO</option>
                     <option value="1">CW_YES</option>
                 </field>
@@ -459,21 +556,33 @@
                     name="powered"
                     type="text"
                     default=""
-                    label="MOD_COALAWEBFLAIR_POWEREDBY_OPT"
-                    description="MOD_COALAWEBFLAIR_POWEREDBY_DESC" />
+                    label="MOD_CWFLAIR_POWEREDBY_OPT"
+                    description="MOD_CWFLAIR_POWEREDBY_DESC" />
                 
                 <field
                     name="copy"
                     type="radio" 
                     class="btn-group" 
                     default="1"
-                    label="MOD_COALAWEBFLAIR_POWERED_BY_LABEL"
-                    description="MOD_COALAWEBFLAIR_POWERED_BY">
+                    label="MOD_CWFLAIR_POWERED_BY_LABEL"
+                    description="MOD_CWFLAIR_POWERED_BY">
                     <option value="0">CW_NO</option>
                     <option value="1">CW_YES</option>
                 </field>
 
             </fieldset>
+            
+            <fieldset 
+                name="VERSION"
+                label="MOD_CWFLAIR_TITLE_VERSION">
+                
+                <field 
+                    name="version_info"
+                    type="version"
+                    label="mod_coalawebflair"/>
+                
+            </fieldset>
+            
         </fields>
     </config>
 </extension>

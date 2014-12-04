@@ -22,14 +22,14 @@
  * along with this program.  If not, see <http://www.gnu.org/licenses/>.
  */
 
-require_once (dirname(__FILE__).DS.'helper.php');
+require_once dirname(__FILE__) . '/helper.php';
 
-$urlModMedia = JURI::root() . "media/mod_coalawebflair/";
+$urlModMedia = JURI::root() . "media/coalawebflair/modules/flair/";
 $moduleClassSfx = htmlspecialchars($params->get('moduleclass_sfx'));
 
 $doc = JFactory::getDocument();
 if($params->get("load_css")) { 
-    $doc->addStyleSheet($urlModMedia . "css/cwf_default.css"); }
+    $doc->addStyleSheet($urlModMedia . "css/cwf-default.css"); }
 
 // set params variables
 $combinedId     = $params->get('combined_id');
@@ -70,12 +70,22 @@ $areaId       = $params->get('area_id');
 $areaPname    = $params->get('area_pname');
 $areaTheme    = $params->get('area_theme');
 
+$sfDisplay  = $params->get('sf_display');
+$sfId       = $params->get('sf_id');
+$sfPname    = $params->get('sf_pname');
+$sfTheme    = $params->get('sf_theme');
+
+$elDisplay  = $params->get('el_display');
+$elId       = $params->get('el_id');
+$elPname    = $params->get('el_pname');
+$elTheme    = $params->get('el_theme');
+
 $layout   = $params->get('layout');
 
-
+$helpFunc = new CoalawebFlairHelper();
 /* Powered by */
 $copy 		= $params->get('copy', 1);
-$powered 	= $params->get('powered',JTEXT::_('MOD_COALAWEBFLAIR_POWERED'));
+$powered 	= $params->get('powered',JTEXT::_('MOD_CWFLAIR_POWERED'));
 
 // get layout
 require(JModuleHelper::getLayoutPath('mod_coalawebflair'));
