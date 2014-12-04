@@ -25,7 +25,7 @@ defined('_JEXEC') or die('Restricted access');
 jimport('joomla.filesystem.folder');
 jimport('joomla.filesystem.file');
 
-class Mod_CoalawebnewsInstallerScript {
+class Mod_CoalawebflairInstallerScript {
 
     /** @var string The component's name */
     protected $_coalaweb_extension = 'mod_coalawebflair';
@@ -379,7 +379,7 @@ class Mod_CoalawebnewsInstallerScript {
             <tbody>
                 <tr class="row0">
                     <td class="key">
-                        <?php echo JText::_('MOD_CWFLAIR_TITLE'); ?>
+                        <?php echo JText::_('MOD_CWFLAIR_TITLE_CORE'); ?>
                     </td>
                     <td><strong style="color: green">Installed</strong></td>
                 </tr>
@@ -537,7 +537,7 @@ class Mod_CoalawebnewsInstallerScript {
             <tbody>
                 <tr class="row0">
                     <td class="key">
-                        <?php echo JText::_('MOD_CWFLAIR_TITLE'); ?>
+                        <?php echo JText::_('MOD_CWFLAIR_TITLE_CORE'); ?>
                     </td>
                     <td>
                         <strong style="color: green">Uninstalled</strong>
