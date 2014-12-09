@@ -5,15 +5,15 @@
 ★★ Also Note: Only sites where you have more than 200 reputation will appear in the combined layout. ★★
 
 ### Current Individual Accounts
-► Ask Ubuntu
-► Arqade
-► Ask Different
-► Mathematics
-► Stack Overflow
-► Super User
-► Area 51
-► \[New\] Server Fault
-► \[New\] English Language
+- Ask Ubuntu
+- Arqade
+- Ask Different
+- Mathematics
+- Stack Overflow
+- Super User
+- Area 51
+- \[New\] Server Fault
+- \[New\] English Language
 
 ### Languages
 [Language Packs](http://coalaweb.com/downloads/language-packs/joomla-extensions) thanks to the **Open Translators** and hosted on **Transifex**.
