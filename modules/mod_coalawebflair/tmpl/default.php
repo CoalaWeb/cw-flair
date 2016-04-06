@@ -23,7 +23,7 @@ defined('_JEXEC') or die('Restricted access');
  * along with this program.  If not, see <http://www.gnu.org/licenses/>.
  */
 ?>
-<div class="cw-flair-mod" id="<?php echo $params->get('module_unique_id'); ?>">
+<div class="cw-flair-mod" id="cw-flair-<?php echo $uniqueId; ?>">
     <?php if ($layout) : ?>
         <?php echo $helpFunc->getStackExchangeFlair($combinedId, $combinedPname); ?>
     <?php else : ?>

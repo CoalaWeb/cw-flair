@@ -512,13 +512,6 @@
             </fieldset> 
                         
             <fieldset name="advanced">
-                            
-                <field 
-                    name="module_unique_id" 
-                    type="text" 
-                    default="cwflair1" 
-                    label="MOD_CWFLAIR_MODID" 
-                    description="MOD_CWFLAIR_MODID_DESC" />
                         
                 <field 
                     name="moduleclass_sfx" 

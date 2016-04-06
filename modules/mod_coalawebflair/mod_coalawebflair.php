@@ -81,6 +81,7 @@ $elPname    = $params->get('el_pname');
 $elTheme    = $params->get('el_theme');
 
 $layout   = $params->get('layout');
+$uniqueId = $module->id;
 
 $helpFunc = new CoalawebFlairHelper();
 

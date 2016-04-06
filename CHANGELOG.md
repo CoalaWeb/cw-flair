@@ -2,10 +2,12 @@
 
 ### Version 1.0.0 April 2016
 - **(C)** Streamlined code
-- **(C)** Updated date
+- **(C)** Updated the date
 - **(C)** Updated install script
-- **(C)** Update read me file
+- **(C)** Updated read me file
 - **(C)** Directory restructure
+- **(C)** Unique ID is now auto generated
+- **(L)** Updated language files
 - **(R)** Removed Joomla 2.5 support
 
 ### Version 0.0.4 December 2014
