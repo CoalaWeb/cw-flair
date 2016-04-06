@@ -192,11 +192,14 @@ class Mod_CoalawebflairInstallerScript {
         </style>
         <link rel="stylesheet" href="../media/coalaweb/modules/generic/css/cw-config-j3.css" type="text/css">
         <link rel="stylesheet" href="../media/coalaweb/modules/generic/css/cw-config-v2.css" type="text/css">
-        <div class="cw-module">
-            <p class="alert">
+        
+        <div class="cw-module" style="margin-left:-15px;" >
+            <h3><?php echo JText::_('MOD_CWFLAIR_POST_INSTALL_TITLE'); ?></h3>
+            <p class="alert" style="width:95%;">
                 <?php echo JText::_('MOD_CWFLAIR_POST_INSTALL_MSG'); ?>
             </p>
-        </div>
+            <h3><?php echo JText::_('MOD_CWFLAIR_INSTALL_DETAILS_TITLE'); ?></h3>
+
         <table class="coalaweb">
             <thead align="left">
                 <tr>
@@ -256,6 +259,7 @@ class Mod_CoalawebflairInstallerScript {
                 <?php endif; ?>
             </tbody>
         </table>
+        </div>
         <?php
     }
 
