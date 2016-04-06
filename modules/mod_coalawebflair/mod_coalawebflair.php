@@ -6,9 +6,9 @@
  * @author url          http://coalaweb.com
  * @author email        support@coalaweb.com
  * @license             GNU/GPL, see /assets/en-GB.license.txt
- * @copyright           Copyright (c) 2013 Steven Palmer All rights reserved.
+ * @copyright           Copyright (c) 2016 Steven Palmer All rights reserved.
  *
- * Coala Web Social Links is free software: you can redistribute it and/or modify
+ * Coala Web Flair is free software: you can redistribute it and/or modify
  * it under the terms of the GNU General Public License as published by
  * the Free Software Foundation, either version 3 of the License, or
  * (at your option) any later version.
@@ -83,11 +83,6 @@ $elTheme    = $params->get('el_theme');
 $layout   = $params->get('layout');
 
 $helpFunc = new CoalawebFlairHelper();
-/* Powered by */
-$copy 		= $params->get('copy', 1);
-$powered 	= $params->get('powered',JTEXT::_('MOD_CWFLAIR_POWERED'));
 
 // get layout
 require(JModuleHelper::getLayoutPath('mod_coalawebflair'));
-
-?>

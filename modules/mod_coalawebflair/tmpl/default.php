@@ -7,9 +7,9 @@ defined('_JEXEC') or die('Restricted access');
  * @author url          http://coalaweb.com
  * @author email        support@coalaweb.com
  * @license             GNU/GPL, see /assets/en-GB.license.txt
- * @copyright           Copyright (c) 2013 Steven Palmer All rights reserved.
+ * @copyright           Copyright (c) 2016 Steven Palmer All rights reserved.
  *
- * Coala Web Social Links is free software: you can redistribute it and/or modify
+ * Coala Web Flair is free software: you can redistribute it and/or modify
  * it under the terms of the GNU General Public License as published by
  * the Free Software Foundation, either version 3 of the License, or
  * (at your option) any later version.
@@ -54,11 +54,6 @@ defined('_JEXEC') or die('Restricted access');
         <?php if ($elDisplay) : ?>
             <?php echo $helpFunc->getEnglishLanguageFlair($elId, $elPname, $elTheme); ?>
         <?php endif; ?>
-    <?php endif; ?>
-    <?php if ($copy) : ?>
-        <span class="cw-flair-mod-copyrht">
-            <?php echo $powered ?> <a target="_blank" title="CoalaWeb" href="http://coalaweb.com">CoalaWeb</a>
-        </span>
     <?php endif; ?>
 
 </div>

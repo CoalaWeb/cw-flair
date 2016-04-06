@@ -9,9 +9,9 @@ defined('_JEXEC') or die('Restricted access');
  * @author url          http://coalaweb.com
  * @author email        support@coalaweb.com
  * @license             GNU/GPL, see /assets/en-GB.license.txt
- * @copyright           Copyright (c) 2013 Steven Palmer All rights reserved.
+ * @copyright           Copyright (c) 2016 Steven Palmer All rights reserved.
  *
- * Coala Web Social Links is free software: you can redistribute it and/or modify
+ * Coala Web Flair is free software: you can redistribute it and/or modify
  * it under the terms of the GNU General Public License as published by
  * the Free Software Foundation, either version 3 of the License, or
  * (at your option) any later version.
@@ -25,8 +25,14 @@ defined('_JEXEC') or die('Restricted access');
  * along with this program.  If not, see <http://www.gnu.org/licenses/>.
  */
 class CoalawebFlairHelper {
-    /* Combined Flair */
 
+    /**
+     * Combined Stackexchnage flair
+     * 
+     * @param type $combinedId
+     * @param type $combinedPname
+     * @return array
+     */
     function getStackExchangeFlair($combinedId, $combinedPname) {
         $output[] = '<div class="cwf-profile">';
         $output[] = '<a href="http://stackexchange.com/users/' . $combinedId . '/' . $combinedPname . '" target="_blank">';

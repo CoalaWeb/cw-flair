@@ -7,9 +7,9 @@ defined('_JEXEC') or die('Restricted access');
  * @author url          http://coalaweb.com
  * @author email        support@coalaweb.com
  * @license             GNU/GPL, see /assets/en-GB.license.txt
- * @copyright           Copyright (c) 2014 Steven Palmer All rights reserved.
+ * @copyright           Copyright (c) 2016 Steven Palmer All rights reserved.
  *
- * CoalaWeb Contact is free software: you can redistribute it and/or modify
+ * CoalaWeb Flair is free software: you can redistribute it and/or modify
  * it under the terms of the GNU General Public License as published by
  * the Free Software Foundation, either version 3 of the License, or
  * (at your option) any later version.
@@ -27,11 +27,11 @@ jimport('joomla.filesystem.file');
 
 class Mod_CoalawebflairInstallerScript {
 
-    /** @var string The component's name */
+    /** @var string The extension's name */
     protected $_coalaweb_extension = 'mod_coalawebflair';
 
     /** @var string Possible duplicate update info */
-    protected $_update_remove = 'http://cdn.coalaweb.com/updates/cw-flair-core.xml';
+    protected $_update_remove = 'http://cdn.coalaweb.com/updates/cw-flair-pro.xml';
 
     /** @var array The list of extra modules and plugins to install */
     private $installation_queue = array(
@@ -78,6 +78,8 @@ class Mod_CoalawebflairInstallerScript {
     private $cwRemoveProObsoleteModules = array(
         'modules' => array(
             'admin' => array(
+            ),
+            'site' => array(
             )
         )
     );
@@ -89,8 +91,9 @@ class Mod_CoalawebflairInstallerScript {
         'folders' => array(
         )
     );
-    private $coalawebCliScripts = array(
-    );
+
+    /** @var array CLI Scripts to install */
+    private $coalawebCliScripts = array();
 
     /** @var array New files and folders to add */
     private $coalawebAddFiles = array(
@@ -107,7 +110,7 @@ class Mod_CoalawebflairInstallerScript {
      * @param JInstaller $parent Parent object
      */
     public function preflight($type, $parent) {
-        // Only allow to install on Joomla! 2.5.0 or later with PHP 5.3.0 or later
+        // Only allow to install on Joomla! 3.2 or later with PHP 5.4 or later
         if (defined('PHP_VERSION')) {
             $version = PHP_VERSION;
         } elseif (function_exists('phpversion')) {
@@ -116,26 +119,21 @@ class Mod_CoalawebflairInstallerScript {
             $version = '5.0.0'; // all bets are off!
         }
 
-        if (!version_compare(JVERSION, '2.5.6', 'ge')) {
-            $msg = "<p>You need Joomla! 2.5.6 or later to install this component</p>";
+        if (!version_compare(JVERSION, '3.2', 'ge')) {
+            $msg = "<p>Sorry, you need Joomla! 3.2 or later to install this extension!</p>";
 
             JError::raiseWarning(100, $msg);
 
             return false;
         }
 
-        if (!version_compare($version, '5.3.1', 'ge')) {
-            $msg = "<p>You need PHP 5.3.1 or later to install this component</p>";
+        if (!version_compare($version, '5.4', 'ge')) {
+            $msg = "<p>Sorry, you need PHP 5.4 or later to install this extension!</p>";
 
-            if (version_compare(JVERSION, '3.0', 'gt')) {
-                JLog::add($msg, JLog::WARNING, 'jerror');
-            } else {
                 JError::raiseWarning(100, $msg);
-            }
 
             return false;
         }
-
 
         return true;
     }
@@ -155,6 +153,7 @@ class Mod_CoalawebflairInstallerScript {
         // Add new files and folders
         $this->_addNewFilesAndFolders($this->coalawebAddFiles);
 
+        // Copy any included CLI scripts into Joomla!'s cli directory
         $this->_copyCliFiles($parent);
 
         // Remove Pro or Obsolete extensions
@@ -182,89 +181,6 @@ class Mod_CoalawebflairInstallerScript {
     }
 
     /**
-     * Removes Pro plugins
-     *
-     * @param JInstaller $parent
-     */
-    private function _removeProObsoletePlugins($parent) {
-        $src = $parent->getParent()->getPath('source');
-        $db = JFactory::getDbo();
-
-        if (count($this->cwRemoveProObsoletePlugins['plugins'])) {
-            foreach ($this->cwRemoveProObsoletePlugins['plugins'] as $folder => $plugins) {
-                foreach ($plugins as $plugin) {
-                    $sql = $db->getQuery(true)
-                            ->select($db->qn('extension_id'))
-                            ->from($db->qn('#__extensions'))
-                            ->where($db->qn('type') . ' = ' . $db->q('plugin'))
-                            ->where($db->qn('element') . ' = ' . $db->q($plugin))
-                            ->where($db->qn('folder') . ' = ' . $db->q($folder));
-                    $db->setQuery($sql);
-                    $id = $db->loadResult();
-                    if ($id) {
-                        $installer = new JInstaller;
-                        $result = $installer->uninstall('plugin', $id, 1);
-                    }
-                }
-            }
-        }
-    }
-
-    /**
-     * Removes Pro plugins
-     *
-     * @param JInstaller $parent
-     */
-    private function _removeProObsoleteModules($parent) {
-        $src = $parent->getParent()->getPath('source');
-        $db = JFactory::getDbo();
-
-        if (count($this->cwRemoveProObsoleteModules['modules'])) {
-            foreach ($this->cwRemoveProObsoleteModules['modules'] as $folder => $modules) {
-                foreach ($modules as $module) {
-                    // Find the module ID
-                    $sql = $db->getQuery(true)
-                            ->select($db->qn('extension_id'))
-                            ->from($db->qn('#__extensions'))
-                            ->where($db->qn('element') . ' = ' . $db->q('mod_' . $module))
-                            ->where($db->qn('type') . ' = ' . $db->q('module'));
-                    $db->setQuery($sql);
-                    $id = $db->loadResult();
-                    // Uninstall the module
-                    if ($id) {
-                        $installer = new JInstaller;
-                        $result = $installer->uninstall('module', $id, 1);
-                    }
-                }
-            }
-        }
-    }
-
-    /**
-     * Copies the CLI scripts into Joomla!'s cli directory
-     * 
-     * @param JInstaller $parent 
-     */
-    private function _copyCliFiles($parent) {
-        if (!count($this->coalawebCliScripts)) {
-            return;
-        }
-        $src = $parent->getParent()->getPath('source');
-
-        jimport("joomla.filesystem.file");
-        jimport("joomla.filesystem.folder");
-
-        foreach ($this->coalawebCliScripts as $script) {
-            if (JFile::exists(JPATH_ROOT . '/cli/' . $script)) {
-                JFile::delete(JPATH_ROOT . '/cli/' . $script);
-            }
-            if (JFile::exists($src . '/cli/' . $script)) {
-                JFile::move($src . '/cli/' . $script, JPATH_ROOT . '/cli/' . $script);
-            }
-        }
-    }
-
-    /**
      * Renders the post-installation message 
      */
     private function _renderPostInstallation($status, $parent) {
@@ -272,107 +188,18 @@ class Mod_CoalawebflairInstallerScript {
 
         <?php $rows = 1; ?>
         <style type="text/css">
-            .coalaweb {
-                font-family: "Trebuchet MS",Helvetica,sans-serif;
-                font-size: 13px !important;
-                font-weight: normal !important;
-                color: #4D4D4D;
-            }
-
-            .coalaweb {
-                border: solid #ccc 1px;
-                background: #fff;
-                -moz-border-radius: 3px;
-                -webkit-border-radius: 3px;
-                border-radius: 3px;
-                *border-collapse: collapse; /* IE7 and lower */
-                border-spacing: 0;
-                width: 95%;    
-                margin: 7px 15px 15px !important;
-            }
-
-            .coalaweb tr:hover {
-                background: #E8F6FE;
-                -o-transition: all 0.1s ease-in-out;
-                -webkit-transition: all 0.1s ease-in-out;
-                -moz-transition: all 0.1s ease-in-out;
-                -ms-transition: all 0.1s ease-in-out;
-                transition: all 0.1s ease-in-out;     
-            }    
-
-            .coalaweb tr.row1 {
-                background-color: #F0F0EE;
-            }
-
-            .coalaweb td, .coalaweb th {
-                border-left: 1px solid #ccc;
-                border-top: 1px solid #ccc;
-                padding: 10px !important;
-                text-align: left;    
-            }
-
-            .coalaweb th {
-                background-image: -webkit-gradient(linear, left top, left bottom, from(#fdfdfd), to(#f4f4f4));
-                background-image: -webkit-linear-gradient(top, #fdfdfd, #f4f4f4);
-                background-image:    -moz-linear-gradient(top, #fdfdfd, #f4f4f4);
-                background-image:     -ms-linear-gradient(top, #fdfdfd, #f4f4f4);
-                background-image:      -o-linear-gradient(top, #fdfdfd, #f4f4f4);
-                background-image:         linear-gradient( #fdfdfd, #f4f4f4);
-                border-top: none;
-                color: #333 !important;
-                text-shadow: 0px 1px 1px #FFF;
-                border-bottom:4px solid rgb(18, 114, 165) !important;
-            }
-
-            .coalaweb td:first-child, .coalaweb th:first-child {
-                border-left: none;
-            }
-
-            .coalaweb th:first-child {
-                -moz-border-radius: 3px 0 0 0;
-                -webkit-border-radius: 3px 0 0 0;
-                border-radius: 3px 0 0 0;
-            }
-
-            .coalaweb th:last-child {
-                -moz-border-radius: 0 3px 0 0;
-                -webkit-border-radius: 0 3px 0 0;
-                border-radius: 0 3px 0 0;
-            }
-
-            .coalaweb th:only-child{
-                -moz-border-radius: 6px 6px 0 0;
-                -webkit-border-radius: 6px 6px 0 0;
-                border-radius: 6px 6px 0 0;
-            }
-
-            .coalaweb tr:last-child td:first-child {
-                -moz-border-radius: 0 0 0 3px;
-                -webkit-border-radius: 0 0 0 3px;
-                border-radius: 0 0 0 3px;
-            }
-
-            .coalaweb tr:last-child td:last-child {
-                -moz-border-radius: 0 0 3px 0;
-                -webkit-border-radius: 0 0 3px 0;
-                border-radius: 0 0 3px 0;
-            }
-
-            .coalaweb em, .coalaweb strong {
-                color:#1272A5;
-                font-weight: bold;
-            }
+            .coalaweb{font-family:"Trebuchet MS",Helvetica,sans-serif;font-size:13px!important;font-weight:400!important;color:#4D4D4D;border:solid #ccc 1px;background:#fff;-moz-border-radius:3px;-webkit-border-radius:3px;border-radius:3px;*border-collapse:collapse;border-spacing:0;width:95%;margin:7px 15px 15px!important}.coalaweb tr:hover{background:#E8F6FE;-o-transition:all .1s ease-in-out;-webkit-transition:all .1s ease-in-out;-moz-transition:all .1s ease-in-out;-ms-transition:all .1s ease-in-out;transition:all .1s ease-in-out}.coalaweb tr.row1{background-color:#F0F0EE}.coalaweb td,.coalaweb th{border-left:1px solid #ccc;border-top:1px solid #ccc;padding:10px!important;text-align:left}.coalaweb th{background-image:-webkit-gradient(linear,left top,left bottom,from(#fdfdfd),to(#f4f4f4));background-image:-webkit-linear-gradient(top,#fdfdfd,#f4f4f4);background-image:-moz-linear-gradient(top,#fdfdfd,#f4f4f4);background-image:-ms-linear-gradient(top,#fdfdfd,#f4f4f4);background-image:-o-linear-gradient(top,#fdfdfd,#f4f4f4);background-image:linear-gradient(#fdfdfd,#f4f4f4);border-top:none;color:#333!important;text-shadow:0 1px 1px #FFF;border-bottom:4px solid #1272a5!important}.coalaweb td:first-child,.coalaweb th:first-child{border-left:none}.coalaweb th:first-child{-moz-border-radius:3px 0 0;-webkit-border-radius:3px 0 0 0;border-radius:3px 0 0 0}.coalaweb th:last-child{-moz-border-radius:0 3px 0 0;-webkit-border-radius:0 3px 0 0;border-radius:0 3px 0 0}.coalaweb th:only-child{-moz-border-radius:6px 6px 0 0;-webkit-border-radius:6px 6px 0 0;border-radius:6px 6px 0 0}.coalaweb tr:last-child td:first-child{-moz-border-radius:0 0 0 3px;-webkit-border-radius:0 0 0 3px;border-radius:0 0 0 3px}.coalaweb tr:last-child td:last-child{-moz-border-radius:0 0 3px;-webkit-border-radius:0 0 3px 0;border-radius:0 0 3px 0}.coalaweb em,.coalaweb strong{color:#1272A5;font-weight:700}
         </style>
         <link rel="stylesheet" href="../media/coalaweb/modules/generic/css/cw-config.css" type="text/css">
         <span class="cw-message">
             <p class="alert">
-            <?php echo JText::_('MOD_CWFLAIR_POST_INSTALL_MSG'); ?>
+                <?php echo JText::_('MOD_CWFLAIR_POST_INSTALL_MSG'); ?>
             </p>
         </span>
         <table class="coalaweb">
             <thead align="left">
                 <tr>
-                    <th class="title" lign="left">Main</th>
+                    <th class="title" align="left">Main</th>
                     <th width="25%">Status</th>
                 </tr>
             </thead>
@@ -381,7 +208,9 @@ class Mod_CoalawebflairInstallerScript {
                     <td class="key">
                         <?php echo JText::_('MOD_CWFLAIR_TITLE_CORE'); ?>
                     </td>
-                    <td><strong style="color: green">Installed</strong></td>
+                    <td>
+                        <strong style="color: green">Installed</strong>
+                    </td>
                 </tr>
             </tbody>
         </table>
@@ -433,96 +262,7 @@ class Mod_CoalawebflairInstallerScript {
         ?>
         <?php $rows = 0; ?>
         <style type="text/css">
-            .coalaweb {
-                font-family: "Trebuchet MS",Helvetica,sans-serif;
-                font-size: 13px !important;
-                font-weight: normal !important;
-                color: #4D4D4D;
-            }
-
-            .coalaweb {
-                border: solid #ccc 1px;
-                background: #fff;
-                -moz-border-radius: 3px;
-                -webkit-border-radius: 3px;
-                border-radius: 3px;
-                *border-collapse: collapse; /* IE7 and lower */
-                border-spacing: 0;
-                width: 95%;    
-                margin: 7px 15px 15px !important;
-            }
-
-            .coalaweb tr:hover {
-                background: #E8F6FE;
-                -o-transition: all 0.1s ease-in-out;
-                -webkit-transition: all 0.1s ease-in-out;
-                -moz-transition: all 0.1s ease-in-out;
-                -ms-transition: all 0.1s ease-in-out;
-                transition: all 0.1s ease-in-out;     
-            }    
-
-            .coalaweb tr.row1 {
-                background-color: #F0F0EE;
-            }
-
-            .coalaweb td, .coalaweb th {
-                border-left: 1px solid #ccc;
-                border-top: 1px solid #ccc;
-                padding: 10px !important;
-                text-align: left;    
-            }
-
-            .coalaweb th {
-                background-image: -webkit-gradient(linear, left top, left bottom, from(#fdfdfd), to(#f4f4f4));
-                background-image: -webkit-linear-gradient(top, #fdfdfd, #f4f4f4);
-                background-image:    -moz-linear-gradient(top, #fdfdfd, #f4f4f4);
-                background-image:     -ms-linear-gradient(top, #fdfdfd, #f4f4f4);
-                background-image:      -o-linear-gradient(top, #fdfdfd, #f4f4f4);
-                background-image:         linear-gradient( #fdfdfd, #f4f4f4);
-                border-top: none;
-                color: #333 !important;
-                text-shadow: 0px 1px 1px #FFF;
-                border-bottom:4px solid rgb(18, 114, 165) !important;
-            }
-
-            .coalaweb td:first-child, .coalaweb th:first-child {
-                border-left: none;
-            }
-
-            .coalaweb th:first-child {
-                -moz-border-radius: 3px 0 0 0;
-                -webkit-border-radius: 3px 0 0 0;
-                border-radius: 3px 0 0 0;
-            }
-
-            .coalaweb th:last-child {
-                -moz-border-radius: 0 3px 0 0;
-                -webkit-border-radius: 0 3px 0 0;
-                border-radius: 0 3px 0 0;
-            }
-
-            .coalaweb th:only-child{
-                -moz-border-radius: 6px 6px 0 0;
-                -webkit-border-radius: 6px 6px 0 0;
-                border-radius: 6px 6px 0 0;
-            }
-
-            .coalaweb tr:last-child td:first-child {
-                -moz-border-radius: 0 0 0 3px;
-                -webkit-border-radius: 0 0 0 3px;
-                border-radius: 0 0 0 3px;
-            }
-
-            .coalaweb tr:last-child td:last-child {
-                -moz-border-radius: 0 0 3px 0;
-                -webkit-border-radius: 0 0 3px 0;
-                border-radius: 0 0 3px 0;
-            }
-
-            .coalaweb em, .coalaweb strong {
-                color:#1272A5;
-                font-weight: bold;
-            }
+            .coalaweb{font-family:"Trebuchet MS",Helvetica,sans-serif;font-size:13px!important;font-weight:400!important;color:#4D4D4D;border:solid #ccc 1px;background:#fff;-moz-border-radius:3px;-webkit-border-radius:3px;border-radius:3px;*border-collapse:collapse;border-spacing:0;width:95%;margin:7px 15px 15px!important}.coalaweb tr:hover{background:#E8F6FE;-o-transition:all .1s ease-in-out;-webkit-transition:all .1s ease-in-out;-moz-transition:all .1s ease-in-out;-ms-transition:all .1s ease-in-out;transition:all .1s ease-in-out}.coalaweb tr.row1{background-color:#F0F0EE}.coalaweb td,.coalaweb th{border-left:1px solid #ccc;border-top:1px solid #ccc;padding:10px!important;text-align:left}.coalaweb th{background-image:-webkit-gradient(linear,left top,left bottom,from(#fdfdfd),to(#f4f4f4));background-image:-webkit-linear-gradient(top,#fdfdfd,#f4f4f4);background-image:-moz-linear-gradient(top,#fdfdfd,#f4f4f4);background-image:-ms-linear-gradient(top,#fdfdfd,#f4f4f4);background-image:-o-linear-gradient(top,#fdfdfd,#f4f4f4);background-image:linear-gradient(#fdfdfd,#f4f4f4);border-top:none;color:#333!important;text-shadow:0 1px 1px #FFF;border-bottom:4px solid #1272a5!important}.coalaweb td:first-child,.coalaweb th:first-child{border-left:none}.coalaweb th:first-child{-moz-border-radius:3px 0 0;-webkit-border-radius:3px 0 0 0;border-radius:3px 0 0 0}.coalaweb th:last-child{-moz-border-radius:0 3px 0 0;-webkit-border-radius:0 3px 0 0;border-radius:0 3px 0 0}.coalaweb th:only-child{-moz-border-radius:6px 6px 0 0;-webkit-border-radius:6px 6px 0 0;border-radius:6px 6px 0 0}.coalaweb tr:last-child td:first-child{-moz-border-radius:0 0 0 3px;-webkit-border-radius:0 0 0 3px;border-radius:0 0 0 3px}.coalaweb tr:last-child td:last-child{-moz-border-radius:0 0 3px;-webkit-border-radius:0 0 3px 0;border-radius:0 0 3px 0}.coalaweb em,.coalaweb strong{color:#1272A5;font-weight:700}
         </style>
         <span class="cw-slider">
             <h3> CoalaWeb Flair Uninstallation Status</h3>
@@ -549,7 +289,7 @@ class Mod_CoalawebflairInstallerScript {
             <table class="coalaweb">
                 <thead align="left">
                     <tr>
-                        <th class="title" align="left">Modules</th>
+                        <th class="title" align="left">Extra Modules</th>
                         <th width="25%">Client</th>
                         <th width="25%">Status</th>
                     </tr>
@@ -588,7 +328,104 @@ class Mod_CoalawebflairInstallerScript {
         <?php
     }
 
+    /**
+     * Removes Pro or Obsolete plugins
+     *
+     * @param JInstaller $parent
+     */
+    private function _removeProObsoletePlugins($parent) {
+        $src = $parent->getParent()->getPath('source');
+        $db = JFactory::getDbo();
   
+        if (count($this->cwRemoveProObsoletePlugins['plugins'])) {
+            foreach ($this->cwRemoveProObsoletePlugins['plugins'] as $folder => $plugins) {
+                foreach ($plugins as $plugin) {
+
+                    // Find the plugin ID
+                    $query = $db->getQuery(true);
+
+                    $query
+                            ->select($db->qn('extension_id'))
+                            ->from($db->qn('#__extensions'))
+                            ->where($db->qn('type') . ' = ' . $db->q('plugin'))
+                            ->where($db->qn('element') . ' = ' . $db->q($plugin))
+                            ->where($db->qn('folder') . ' = ' . $db->q($folder));
+
+                    $db->setQuery($query);
+                    $id = $db->loadResult();
+
+                    if ($id) {
+                        $installer = new JInstaller;
+                        $result = $installer->uninstall('plugin', $id, 1);
+                    }
+                }
+            }
+        }
+    }
+
+    /**
+     * Removes Pro or Obsolete modules
+     *
+     * @param JInstaller $parent
+     */
+    private function _removeProObsoleteModules($parent) {
+        $src = $parent->getParent()->getPath('source');
+        $db = JFactory::getDbo();
+
+        if (count($this->cwRemoveProObsoleteModules['modules'])) {
+            foreach ($this->cwRemoveProObsoleteModules['modules'] as $folder => $modules) {
+                foreach ($modules as $module) {
+                    
+                    if (empty($folder)) {
+                        $folder = 'site';
+                    }
+                        
+                    // Find the module ID
+                    $query = $db->getQuery(true);
+
+                    $query
+                            ->select($db->qn('extension_id'))
+                            ->from($db->qn('#__extensions'))
+                            ->where($db->qn('element') . ' = ' . $db->q('mod_' . $module))
+                            ->where($db->qn('type') . ' = ' . $db->q('module'));
+
+                    $db->setQuery($query);
+                    $id = $db->loadResult();
+
+                    // Uninstall the module
+                    if ($id) {
+                        $installer = new JInstaller;
+                        $result = $installer->uninstall('module', $id, 1);
+                    }
+                }
+            }
+        }
+    }
+
+    /**
+     * Copies any CLI scripts into Joomla!'s cli directory
+     * 
+     * @param JInstaller $parent 
+     */
+    private function _copyCliFiles($parent) {
+        if (!count($this->coalawebCliScripts)) {
+            return;
+        }
+        $src = $parent->getParent()->getPath('source');
+
+        jimport("joomla.filesystem.file");
+        jimport("joomla.filesystem.folder");
+
+        foreach ($this->coalawebCliScripts as $script) {
+            if (JFile::exists(JPATH_ROOT . '/cli/' . $script)) {
+                JFile::delete(JPATH_ROOT . '/cli/' . $script);
+            }
+            if (JFile::exists($src . '/cli/' . $script)) {
+                JFile::move($src . '/cli/' . $script, JPATH_ROOT . '/cli/' . $script);
+            }
+        }
+    }
+
     /**
      * Installs subextensions (modules, plugins) bundled with the main extension
      * 
@@ -633,11 +470,13 @@ class Mod_CoalawebflairInstallerScript {
                         }
 
                         // Was the module already installed?
-                        $sql = $db->getQuery(true)
+                        $query = $db->getQuery(true);
+                        $query
                                 ->select('COUNT(*)')
                                 ->from('#__modules')
                                 ->where($db->qn('module') . ' = ' . $db->q('mod_' . $module));
-                        $db->setQuery($sql);
+
+                        $db->setQuery($query);
 
                         try {
                             $count = $db->loadResult();
@@ -662,16 +501,17 @@ class Mod_CoalawebflairInstallerScript {
                                 $modulePosition = 'icon';
                             }
 
-                            $sql = $db->getQuery(true)
+                            $query = $db->getQuery(true);
+                            $query
                                     ->update($db->qn('#__modules'))
                                     ->set($db->qn('position') . ' = ' . $db->q($modulePosition))
                                     ->where($db->qn('module') . ' = ' . $db->q('mod_' . $module));
 
                             if ($modulePublished) {
-                                $sql->set($db->qn('published') . ' = ' . $db->q('1'));
+                                $query->set($db->qn('published') . ' = ' . $db->q('1'));
                             }
 
-                            $db->setQuery($sql);
+                            $db->setQuery($query);
 
                             try {
                                 $db->execute();
@@ -683,17 +523,22 @@ class Mod_CoalawebflairInstallerScript {
                             if ($folder == 'admin') {
                                 try {
                                     $query = $db->getQuery(true);
-                                    $query->select('MAX(' . $db->qn('ordering') . ')')
+                                    $query
+                                            ->select('MAX(' . $db->qn('ordering') . ')')
                                             ->from($db->qn('#__modules'))
                                             ->where($db->qn('position') . '=' . $db->q($modulePosition));
+
                                     $db->setQuery($query);
                                     $position = $db->loadResult();
+
                                     $position++;
 
                                     $query = $db->getQuery(true);
-                                    $query->update($db->qn('#__modules'))
+                                    $query
+                                            ->update($db->qn('#__modules'))
                                             ->set($db->qn('ordering') . ' = ' . $db->q($position))
                                             ->where($db->qn('module') . ' = ' . $db->q('mod_' . $module));
+
                                     $db->setQuery($query);
                                     $db->execute();
                                 } catch (Exception $exc) {
@@ -704,16 +549,21 @@ class Mod_CoalawebflairInstallerScript {
                             // C. Link to all pages
                             try {
                                 $query = $db->getQuery(true);
-                                $query->select('id')->from($db->qn('#__modules'))
+                                $query
+                                        ->select('id')->from($db->qn('#__modules'))
                                         ->where($db->qn('module') . ' = ' . $db->q('mod_' . $module));
+
                                 $db->setQuery($query);
                                 $moduleid = $db->loadResult();
 
                                 $query = $db->getQuery(true);
-                                $query->select('*')->from($db->qn('#__modules_menu'))
+                                $query
+                                        ->select('*')->from($db->qn('#__modules_menu'))
                                         ->where($db->qn('moduleid') . ' = ' . $db->q($moduleid));
+
                                 $db->setQuery($query);
                                 $assignments = $db->loadObjectList();
+
                                 $isAssigned = !empty($assignments);
                                 if (!$isAssigned) {
                                     $o = (object) array(
@@ -816,15 +666,21 @@ class Mod_CoalawebflairInstallerScript {
         if (count($this->uninstallation_queue['modules'])) {
             foreach ($this->uninstallation_queue['modules'] as $folder => $modules) {
                 if (count($modules)) {
-                    foreach ($modules as $module => $modulePreferences) {
+                    foreach ($modules as $module) {
+                        if (empty($folder)) {
+                            $folder = 'site';
+                        }
                         // Find the module ID
-                        $sql = $db->getQuery(true)
+                        $query = $db->getQuery(true);
+                        $query
                                 ->select($db->qn('extension_id'))
                                 ->from($db->qn('#__extensions'))
                                 ->where($db->qn('element') . ' = ' . $db->q('mod_' . $module))
                                 ->where($db->qn('type') . ' = ' . $db->q('module'));
-                        $db->setQuery($sql);
+
+                        $db->setQuery($query);
                         $id = $db->loadResult();
+
                         // Uninstall the module
                         if ($id) {
                             $installer = new JInstaller;
@@ -844,16 +700,18 @@ class Mod_CoalawebflairInstallerScript {
         if (count($this->uninstallation_queue['plugins'])) {
             foreach ($this->uninstallation_queue['plugins'] as $folder => $plugins) {
                 if (count($plugins)) {
-                    foreach ($plugins as $plugin => $published) {
-                        $sql = $db->getQuery(true)
+                    foreach ($plugins as $plugin) {
+                        $query = $db->getQuery(true);
+                        $query
                                 ->select($db->qn('extension_id'))
                                 ->from($db->qn('#__extensions'))
                                 ->where($db->qn('type') . ' = ' . $db->q('plugin'))
                                 ->where($db->qn('element') . ' = ' . $db->q($plugin))
                                 ->where($db->qn('folder') . ' = ' . $db->q($folder));
-                        $db->setQuery($sql);
 
+                        $db->setQuery($query);
                         $id = $db->loadResult();
+
                         if ($id) {
                             $installer = new JInstaller;
                             $result = $installer->uninstall('plugin', $id, 1);
@@ -934,7 +792,10 @@ class Mod_CoalawebflairInstallerScript {
     private function _removeUpdateSite() {
         // Get some info on all the stuff we've gotta delete
         $db = JFactory::getDbo();
-        $query = $db->getQuery(true)
+
+        $query = $db->getQuery(true);
+
+        $query
                 ->select(array(
                     $db->qn('s') . '.' . $db->qn('update_site_id'),
                     $db->qn('e') . '.' . $db->qn('extension_id'),
@@ -951,10 +812,10 @@ class Mod_CoalawebflairInstallerScript {
                         $db->qn('se') . '.' . $db->qn('extension_id')
                         . ')')
                 ->where($db->qn('s') . '.' . $db->qn('type') . ' = ' . $db->q('extension'))
-                ->where($db->qn('e') . '.' . $db->qn('type') . ' = ' . $db->q('component'))
+                ->where($db->qn('e') . '.' . $db->qn('type') . ' = ' . $db->q('module'))
                 ->where($db->qn('e') . '.' . $db->qn('element') . ' = ' . $db->q($this->_coalaweb_extension))
-                ->where($db->qn('s') . '.' . $db->qn('location') . ' = ' . $db->q($this->_update_remove))
-        ;
+                ->where($db->qn('s') . '.' . $db->qn('location') . ' = ' . $db->q($this->_update_remove));
+
         $db->setQuery($query);
         $oResult = $db->loadObject();
 
@@ -964,34 +825,45 @@ class Mod_CoalawebflairInstallerScript {
         }
 
         // Delete the #__update_sites record
-        $query = $db->getQuery(true)
+        $query = $db->getQuery(true);
+
+        $query
                 ->delete($db->qn('#__update_sites'))
                 ->where($db->qn('update_site_id') . ' = ' . $db->q($oResult->update_site_id));
+
         $db->setQuery($query);
+
         try {
-            $db->query();
+            $db->execute();
         } catch (Exception $exc) {
             // If the query fails, don't sweat about it
         }
 
         // Delete the #__update_sites_extensions record
-        $query = $db->getQuery(true)
+        $query = $db->getQuery(true);
+        $query
                 ->delete($db->qn('#__update_sites_extensions'))
                 ->where($db->qn('update_site_id') . ' = ' . $db->q($oResult->update_site_id));
+
         $db->setQuery($query);
+
         try {
-            $db->query();
+            $db->execute();
         } catch (Exception $exc) {
             // If the query fails, don't sweat about it
         }
 
         // Delete the #__updates records
-        $query = $db->getQuery(true)
+        $query = $db->getQuery(true);
+
+        $query
                 ->delete($db->qn('#__updates'))
                 ->where($db->qn('update_site_id') . ' = ' . $db->q($oResult->update_site_id));
+
         $db->setQuery($query);
+
         try {
-            $db->query();
+            $db->execute();
         } catch (Exception $exc) {
          // If the query fails, don't sweat about it
         }

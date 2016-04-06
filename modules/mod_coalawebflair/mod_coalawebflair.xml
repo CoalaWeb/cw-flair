@@ -1,19 +1,19 @@
 <?xml version="1.0" encoding="utf-8"?>
-<extension type="module" version="2.5" client="site" method="upgrade">
+<extension type="module" version="3.2" client="site" method="upgrade">
     <name>MOD_COALAWEBFLAIR</name>
-    <creationDate>2014-12-5</creationDate>
+    <creationDate>2016-04-06</creationDate>
     <author>Steven Palmer</author>
     <authorEmail>support@coalaweb.com</authorEmail>
     <authorUrl>http://coalaweb.com</authorUrl>
-    <copyright>Copyright (c) 2014 Steven Palmer All rights reserved</copyright>
+    <copyright>Copyright (c) 2016 Steven Palmer All rights reserved</copyright>
     <license>http://www.gnu.org/copyleft/gpl.html GNU/GPL</license>
-    <version>0.0.4</version>
+    <version>1.0.0</version>
     <description>MOD_COALAWEBFLAIR_DESCRIPTION</description>
         
-    <languages folder="language">
-        <language tag="en-GB">en-GB/en-GB.mod_coalawebflair.ini</language>
-        <language tag="en-GB">en-GB/en-GB.mod_coalawebflair.sys.ini</language>
-    </languages>
+    <media destination="coalawebflair" folder="media/coalawebflair">
+        <filename>index.html</filename>
+        <folder>modules</folder>
+    </media>
         
     <files>
         <filename module="mod_coalawebflair">mod_coalawebflair.php</filename>
@@ -24,11 +24,12 @@
         <folder>assets</folder>
         <folder>language</folder>
     </files>
-        
-    <media destination="coalawebflair/modules/flair" folder="media">
-        <filename>index.html</filename>
-        <folder>css</folder>
-    </media>
+      
+    <languages folder="language">
+        <language tag="en-GB">en-GB/en-GB.mod_coalawebflair.ini</language>
+        <language tag="en-GB">en-GB/en-GB.mod_coalawebflair.sys.ini</language>
+    </languages>  
+    
     <!-- HELP FILE -->
     <help url="MOD_COALAWEBFLAIR_HELP_URL" />
         
@@ -37,7 +38,7 @@
         <server type="extension" priority="1" name="CoalaWeb Flair Update">http://cdn.coalaweb.com/updates/cw-flair-core.xml</server>
     </updateservers>
     
-        <!-- Installation / Uninstallation Script File -->
+    <!-- Installation / Uninstallation Script File -->
     <scriptfile>script.coalawebflair.php</scriptfile>
         
     <config>
@@ -271,7 +272,7 @@
                 name="INDIVIDUAL_E"
                 label="MOD_CWFLAIR_FIELDSET_IND_E" >
                 
-                 <field 
+                <field 
                     type="spacer" 
                     name="el_spacer" 
                     label="MOD_CWFLAIR_TITLE_ENGLISHLANGUAGE"
@@ -373,7 +374,7 @@
                 name="INDIVIDUAL_S"
                 label="MOD_CWFLAIR_FIELDSET_IND_S" >
 
-                   <field 
+                <field 
                     type="spacer" 
                     name="sf_spacer" 
                     label="MOD_CWFLAIR_TITLE_SERVERFAULT"
@@ -548,24 +549,6 @@
                     default="1" 
                     label="MOD_CWFLAIR_LOADCSS_LABEL" 
                     description="MOD_CWFLAIR_LOADCSS_DESC">
-                    <option value="0">CW_NO</option>
-                    <option value="1">CW_YES</option>
-                </field>
-                        
-                <field 
-                    name="powered"
-                    type="text"
-                    default=""
-                    label="MOD_CWFLAIR_POWEREDBY_OPT"
-                    description="MOD_CWFLAIR_POWEREDBY_DESC" />
-                
-                <field
-                    name="copy"
-                    type="radio" 
-                    class="btn-group" 
-                    default="1"
-                    label="MOD_CWFLAIR_POWERED_BY_LABEL"
-                    description="MOD_CWFLAIR_POWERED_BY">
                     <option value="0">CW_NO</option>
                     <option value="1">CW_YES</option>
                 </field>
