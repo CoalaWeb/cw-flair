@@ -24,5 +24,5 @@ defined('_JEXEC') or die('Restricted access');
  * along with this program.  If not, see <http://www.gnu.org/licenses/>.
  */
 define('MOD_CWFLAIR_VERSION', '1.0.0');
-define('MOD_CWFLAIR_DATE', '2016-04-06');
+define('MOD_CWFLAIR_DATE', '2016-04-07');
 define('MOD_CWFLAIR_PRO', '0');

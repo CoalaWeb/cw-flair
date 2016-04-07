@@ -1,7 +1,7 @@
 <?xml version="1.0" encoding="utf-8"?>
 <extension type="module" version="3.2" client="site" method="upgrade">
     <name>MOD_COALAWEBFLAIR</name>
-    <creationDate>2016-04-06</creationDate>
+    <creationDate>2016-04-07</creationDate>
     <author>Steven Palmer</author>
     <authorEmail>support@coalaweb.com</authorEmail>
     <authorUrl>http://coalaweb.com</authorUrl>
