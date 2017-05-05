@@ -1,13 +1,13 @@
 <?xml version="1.0" encoding="utf-8"?>
 <extension type="module" version="3.2" client="site" method="upgrade">
     <name>MOD_COALAWEBFLAIR</name>
-    <creationDate>2016-04-07</creationDate>
+    <creationDate>2017-05-05</creationDate>
     <author>Steven Palmer</author>
     <authorEmail>support@coalaweb.com</authorEmail>
-    <authorUrl>http://coalaweb.com</authorUrl>
-    <copyright>Copyright (c) 2016 Steven Palmer All rights reserved</copyright>
-    <license>http://www.gnu.org/copyleft/gpl.html GNU/GPL</license>
-    <version>1.0.0</version>
+    <authorUrl>https://coalaweb.com</authorUrl>
+    <copyright>Copyright (c) 2017 Steven Palmer All rights reserved</copyright>
+    <license>https://www.gnu.org/copyleft/gpl.html GNU/GPL</license>
+    <version>1.0.1</version>
     <description>MOD_COALAWEBFLAIR_DESCRIPTION</description>
         
     <media destination="coalawebflair" folder="media/coalawebflair">

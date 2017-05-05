@@ -4,10 +4,10 @@ defined('_JEXEC') or die('Restricted access');
  * @package             Joomla
  * @subpackage          CoalaWeb Flair Module
  * @author              Steven Palmer
- * @author url          http://coalaweb.com
+ * @author url          https://coalaweb.com
  * @author email        support@coalaweb.com
  * @license             GNU/GPL, see /assets/en-GB.license.txt
- * @copyright           Copyright (c) 2016 Steven Palmer All rights reserved.
+ * @copyright           Copyright (c) 2017 Steven Palmer All rights reserved.
  *
  * Coala Web Flair is free software: you can redistribute it and/or modify
  * it under the terms of the GNU General Public License as published by
@@ -20,7 +20,7 @@ defined('_JEXEC') or die('Restricted access');
  * GNU General Public License for more details.
 
  * You should have received a copy of the GNU General Public License
- * along with this program.  If not, see <http://www.gnu.org/licenses/>.
+ * along with this program.  If not, see <https://www.gnu.org/licenses/>.
  */
 ?>
 <div class="cw-flair-mod" id="cw-flair-<?php echo $uniqueId; ?>">

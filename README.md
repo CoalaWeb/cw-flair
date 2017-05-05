@@ -1,4 +1,4 @@
-**CoalaWeb Flair** is a Joomla 3.2+ extension that lets you display your flair from several StackExchange sites individually or combined into one. You can choose which StackExchanges accounts to display and from one of four style variations for each of them.
+**CoalaWeb Flair** is a Joomla extension that lets you display your flair from several StackExchange sites individually or combined into one. You can choose which StackExchanges accounts to display and from one of four style variations for each of them.
 
 **Please Note:** The StackExchange flair system feeds in a pre created image with a width 208px and a height of 58px so your module position will need sufficient space to accommodate images of this size.
 
@@ -19,12 +19,12 @@
 
 **Need CoalaWeb Flair in a different language?**
 
-[Language Packs](http://coalaweb.com/downloads/language-packs/joomla-extensions) thanks to the **Open Translators** and hosted on **Transifex**.
+[Language Packs](https://coalaweb.com/downloads/language-packs/joomla-extensions) thanks to the **Open Translators** and hosted on **Transifex**.
 
 ### Support
 
 **Need help with CoalaWeb Flair?**
 
-1.Try the [Documentation](http://coalaweb.com/support/documentation/category/flair)
-2.Search the [Forum](http://coalaweb.com/forum/index) to see if your question has already been answered. 
+1.Try the [Documentation](https://coalaweb.com/support/documentation/category/extensions)
+2.Search the [Forum](https://coalaweb.com/forum/index) to see if your question has already been answered. 
 3.Start a new topic.

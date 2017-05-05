@@ -1,11 +1,11 @@
-# NetBeans specific #
-nbproject/private/
+# Packages #
 build/
-nbbuild/
-dist/
-nbdist/
-nbactions.xml
-nb-configuration.xml
 
 # Transifex #
-.tx
+.tx/
+
+# Markdown Files
+TODO.md
+
+# PHP Storm #
+.idea/

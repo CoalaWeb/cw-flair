@@ -1,13 +1,13 @@
 <?php
-defined('_JEXEC') or die('Restricted access');
+
 /**
  * @package             Joomla
  * @subpackage          CoalaWeb Flair
  * @author              Steven Palmer
- * @author url          http://coalaweb.com
+ * @author url          https://coalaweb.com
  * @author email        support@coalaweb.com
  * @license             GNU/GPL, see /assets/en-GB.license.txt
- * @copyright           Copyright (c) 2016 Steven Palmer All rights reserved.
+ * @copyright           Copyright (c) 2017 Steven Palmer All rights reserved.
  *
  * CoalaWeb Flair is free software: you can redistribute it and/or modify
  * it under the terms of the GNU General Public License as published by
@@ -20,10 +20,14 @@ defined('_JEXEC') or die('Restricted access');
  * GNU General Public License for more details.
 
  * You should have received a copy of the GNU General Public License
- * along with this program.  If not, see <http://www.gnu.org/licenses/>.
+ * along with this program.  If not, see <https://www.gnu.org/licenses/>.
  */
+
+defined('_JEXEC') or die('Restricted access');
+
 jimport('joomla.filesystem.folder');
 jimport('joomla.filesystem.file');
+jimport('joomla.log.log');
 
 class Mod_CoalawebflairInstallerScript {
 
@@ -106,7 +110,7 @@ class Mod_CoalawebflairInstallerScript {
     /**
      * Joomla! pre-flight event
      * 
-     * @param string $type Installation type (install, update, discover_install)
+     * @param string     $type   Installation type (install, update, discover_install)
      * @param JInstaller $parent Parent object
      */
     public function preflight($type, $parent) {
@@ -119,10 +123,10 @@ class Mod_CoalawebflairInstallerScript {
             $version = '5.0.0'; // all bets are off!
         }
 
-        if (!version_compare(JVERSION, '3.2', 'ge')) {
-            $msg = "<p>Sorry, you need Joomla! 3.2 or later to install this extension!</p>";
+        if (!version_compare(JVERSION, '3.6', 'ge')) {
+            $msg = "<p>Sorry, you need Joomla! 3.6 or later to install this extension!</p>";
 
-            JError::raiseWarning(100, $msg);
+            JLog::add($msg, JLog::WARNING, 'jerror');
 
             return false;
         }
@@ -130,7 +134,7 @@ class Mod_CoalawebflairInstallerScript {
         if (!version_compare($version, '5.4', 'ge')) {
             $msg = "<p>Sorry, you need PHP 5.4 or later to install this extension!</p>";
 
-                JError::raiseWarning(100, $msg);
+            JLog::add($msg, JLog::WARNING, 'jerror');
 
             return false;
         }
@@ -140,7 +144,8 @@ class Mod_CoalawebflairInstallerScript {
 
     /**
      * Runs after install, update or discover_update
-     * @param string $type install, update or discover_update
+     *
+     * @param string     $type   install, update or discover_update
      * @param JInstaller $parent 
      */
     function postflight($type, $parent) {
@@ -192,14 +197,12 @@ class Mod_CoalawebflairInstallerScript {
         </style>
         <link rel="stylesheet" href="../media/coalaweb/modules/generic/css/cw-config-j3.css" type="text/css">
         <link rel="stylesheet" href="../media/coalaweb/modules/generic/css/cw-config-v2.css" type="text/css">
-        
-        <div class="cw-module" style="margin-left:-15px;" >
+         <div class="cw-module" style="margin-left:-15px;" >
             <h3><?php echo JText::_('MOD_CWFLAIR_POST_INSTALL_TITLE'); ?></h3>
             <p class="alert" style="width:95%;">
                 <?php echo JText::_('MOD_CWFLAIR_POST_INSTALL_MSG'); ?>
             </p>
             <h3><?php echo JText::_('MOD_CWFLAIR_INSTALL_DETAILS_TITLE'); ?></h3>
-
         <table class="coalaweb">
             <thead align="left">
                 <tr>
@@ -269,9 +272,9 @@ class Mod_CoalawebflairInstallerScript {
         <style type="text/css">
             .coalaweb{font-family:"Trebuchet MS",Helvetica,sans-serif;font-size:13px!important;font-weight:400!important;color:#4D4D4D;border:solid #ccc 1px;background:#fff;-moz-border-radius:3px;-webkit-border-radius:3px;border-radius:3px;*border-collapse:collapse;border-spacing:0;width:95%;margin:7px 15px 15px!important}.coalaweb tr:hover{background:#E8F6FE;-o-transition:all .1s ease-in-out;-webkit-transition:all .1s ease-in-out;-moz-transition:all .1s ease-in-out;-ms-transition:all .1s ease-in-out;transition:all .1s ease-in-out}.coalaweb tr.row1{background-color:#F0F0EE}.coalaweb td,.coalaweb th{border-left:1px solid #ccc;border-top:1px solid #ccc;padding:10px!important;text-align:left}.coalaweb th{border-top:none;color:#333!important;text-shadow:0 1px 1px #FFF;border-bottom:4px solid #1272a5!important}.coalaweb td:first-child,.coalaweb th:first-child{border-left:none}.coalaweb th:first-child{-moz-border-radius:3px 0 0;-webkit-border-radius:3px 0 0 0;border-radius:3px 0 0 0}.coalaweb th:last-child{-moz-border-radius:0 3px 0 0;-webkit-border-radius:0 3px 0 0;border-radius:0 3px 0 0}.coalaweb th:only-child{-moz-border-radius:6px 6px 0 0;-webkit-border-radius:6px 6px 0 0;border-radius:6px 6px 0 0}.coalaweb tr:last-child td:first-child{-moz-border-radius:0 0 0 3px;-webkit-border-radius:0 0 0 3px;border-radius:0 0 0 3px}.coalaweb tr:last-child td:last-child{-moz-border-radius:0 0 3px;-webkit-border-radius:0 0 3px 0;border-radius:0 0 3px 0}.coalaweb em,.coalaweb strong{color:#1272A5;font-weight:700}
         </style>
-        <div class="cw-module">
+        <span class="cw-slider">
             <h3> CoalaWeb Flair Uninstallation Status</h3>
-        </div>
+        </span>
         <table class="coalaweb">
             <thead align="left">
                 <tr>
@@ -300,13 +303,13 @@ class Mod_CoalawebflairInstallerScript {
                     </tr>
                 </thead>
                 <tbody>
-            <?php foreach ($status->modules as $module) : ?>
+                    <?php foreach ($status->modules as $module) : ?>
                         <tr class="row<?php echo ($rows++ % 2); ?>">
                             <td class="key"><?php echo JText::_($module['name']); ?></td>
                             <td class="key"><?php echo ucfirst($module['client']); ?></td>
                             <td><strong style="color: <?php echo ($module['result']) ? "green" : "red" ?>"><?php echo ($module['result']) ? 'Uninstalled' : 'Not uninstalled'; ?></strong></td>
                         </tr>
-            <?php endforeach; ?>
+                    <?php endforeach; ?>
                 </tbody>
             </table>
         <?php endif; ?>
@@ -320,13 +323,13 @@ class Mod_CoalawebflairInstallerScript {
                     </tr>
                 </thead>
                 <tbody>
-            <?php foreach ($status->plugins as $plugin) : ?>
+                    <?php foreach ($status->plugins as $plugin) : ?>
                         <tr class="row<?php echo ($rows++ % 2); ?>">
                             <td class="key"><?php echo JText::_($plugin['name']); ?></td>
                             <td class="key"><?php echo ucfirst($plugin['group']); ?></td>
                             <td><strong style="color: <?php echo ($plugin['result']) ? "green" : "red" ?>"><?php echo ($plugin['result']) ? 'Uninstalled' : 'Not uninstalled'; ?></strong></td>
                         </tr>
-            <?php endforeach; ?>
+                    <?php endforeach; ?>
                 <?php endif; ?>
             </tbody>
         </table>
@@ -341,7 +344,7 @@ class Mod_CoalawebflairInstallerScript {
     private function _removeProObsoletePlugins($parent) {
         $src = $parent->getParent()->getPath('source');
         $db = JFactory::getDbo();
-  
+
         if (count($this->cwRemoveProObsoletePlugins['plugins'])) {
             foreach ($this->cwRemoveProObsoletePlugins['plugins'] as $folder => $plugins) {
                 foreach ($plugins as $plugin) {
@@ -870,7 +873,7 @@ class Mod_CoalawebflairInstallerScript {
         try {
             $db->execute();
         } catch (Exception $exc) {
-         // If the query fails, don't sweat about it
+            // If the query fails, don't sweat about it
         }
     }
 
