@@ -23,6 +23,6 @@ defined('_JEXEC') or die('Restricted access');
  * You should have received a copy of the GNU General Public License
  * along with this program.  If not, see <https://www.gnu.org/licenses/>.
  */
-define('MOD_CWFLAIR_VERSION', '1.0.1');
-define('MOD_CWFLAIR_DATE', '2017-05-05');
+define('MOD_CWFLAIR_VERSION', '1.0.2');
+define('MOD_CWFLAIR_DATE', '2017-07-26');
 define('MOD_CWFLAIR_PRO', '0');
