@@ -1,45 +1,40 @@
 <?xml version="1.0" encoding="utf-8"?>
 <extension type="module" version="3.6" client="site" method="upgrade">
     <name>MOD_COALAWEBFLAIR</name>
-    <creationDate>2017-07-26</creationDate>
+    <creationDate>2021-05-28</creationDate>
     <author>Steven Palmer</author>
     <authorEmail>support@coalaweb.com</authorEmail>
     <authorUrl>https://coalaweb.com</authorUrl>
-    <copyright>Copyright (c) 2017 Steven Palmer All rights reserved</copyright>
-    <license>https://www.gnu.org/copyleft/gpl.html GNU/GPL</license>
-    <version>1.0.2</version>
+    <copyright>© 2021 Steven Palmer (CoalaWeb), All rights reserved.</copyright>
+    <license>GNU/GPL V3 or later.</license>
+    <version>1.0.3</version>
+    <level>Core</level>
     <description>MOD_COALAWEBFLAIR_DESCRIPTION</description>
-        
+
     <media destination="coalawebflair" folder="media/coalawebflair">
-        <filename>index.html</filename>
-        <folder>modules</folder>
+        ##MEDIAPACKAGEFILES##
     </media>
-        
-    <files>
-        <filename module="mod_coalawebflair">mod_coalawebflair.php</filename>
-        <filename>index.html</filename>
-        <filename>helper.php</filename>
-        <filename>version.php</filename>
-        <folder>tmpl</folder>
-        <folder>assets</folder>
-        <folder>language</folder>
-    </files>
-      
+
     <languages folder="language">
-        <language tag="en-GB">en-GB/en-GB.mod_coalawebflair.ini</language>
-        <language tag="en-GB">en-GB/en-GB.mod_coalawebflair.sys.ini</language>
-    </languages>  
-    
+        ##FRONTENDLANGUAGEFILES##
+    </languages>
+
+    <files>
+        ##PACKAGEFILESMODULE##
+    </files>
+
     <!-- HELP FILE -->
-    <help url="MOD_COALAWEBFLAIR_HELP_URL" />
-        
-    <!-- UPDATESERVER DEFINITION -->
+    <help url="MOD_COALAWEBFLAIR_HELP_URL"/>
+
+    <!-- Update Server -->
     <updateservers>
-        <server type="extension" priority="1" name="CoalaWeb Flair Update">http://cdn.coalaweb.com/updates/cw-flair-core.xml</server>
+        <server type="extension" priority="1" name="CoalaWeb Flair Update">
+            <![CDATA[https://coalaweb.com/index.php?option=com_rdsubs&view=updater&format=xml&cat=18&type=.xml]]>
+        </server>
     </updateservers>
     
     <!-- Installation / Uninstallation Script File -->
-    <scriptfile>script.coalawebflair.php</scriptfile>
+    <scriptfile>script.mod_coalawebflair.php</scriptfile>
         
     <config>
         <fields 
@@ -99,8 +94,8 @@
                     default="0"
                     label="MOD_CWFLAIR_ASKUBUNTU_DISPLAY" 
                     description="MOD_CWFLAIR_ASKUBUNTU_DISPLAY_DESC">
-                    <option value="1">CW_YES</option>
-                    <option value="0">CW_NO</option>
+                    <option value="1">JYES</option>
+                    <option value="0">JNO</option>
                 </field>
                         
                 <field 
@@ -144,8 +139,8 @@
                     default="0"
                     label="MOD_CWFLAIR_AREA_DISPLAY" 
                     description="MOD_CWFLAIR_AREA_DISPLAY_DESC">
-                    <option value="1">CW_YES</option>
-                    <option value="0">CW_NO</option>
+                    <option value="1">JYES</option>
+                    <option value="0">JNO</option>
                 </field>
                         
                 <field 
@@ -189,8 +184,8 @@
                     default="0"
                     label="MOD_CWFLAIR_ARQADE_DISPLAY" 
                     description="MOD_CWFLAIR_ARQADE_DISPLAY_DESC">
-                    <option value="1">CW_YES</option>
-                    <option value="0">CW_NO</option>
+                    <option value="1">JYES</option>
+                    <option value="0">JNO</option>
                 </field>
                         
                 <field 
@@ -234,8 +229,8 @@
                     default="0"
                     label="MOD_CWFLAIR_ASKDIFFERENT_DISPLAY" 
                     description="MOD_CWFLAIR_ASKDIFFERENT_DISPLAY_DESC">
-                    <option value="1">CW_YES</option>
-                    <option value="0">CW_NO</option>
+                    <option value="1">JYES</option>
+                    <option value="0">JNO</option>
                 </field>
                         
                 <field 
@@ -285,8 +280,8 @@
                     default="0"
                     label="MOD_CWFLAIR_ENGLISHLANGUAGE_DISPLAY" 
                     description="MOD_CWFLAIR_ENGLISHLANGUAGE_DISPLAY_DESC">
-                    <option value="1">CW_YES</option>
-                    <option value="0">CW_NO</option>
+                    <option value="1">JYES</option>
+                    <option value="0">JNO</option>
                 </field>
                         
                 <field 
@@ -336,8 +331,8 @@
                     default="0"
                     label="MOD_CWFLAIR_MATHEMATICS_DISPLAY" 
                     description="MOD_CWFLAIR_MATHEMATICS_DISPLAY_DESC">
-                    <option value="1">CW_YES</option>
-                    <option value="0">CW_NO</option>
+                    <option value="1">JYES</option>
+                    <option value="0">JNO</option>
                 </field>
                         
                 <field 
@@ -387,8 +382,8 @@
                     default="0"
                     label="MOD_CWFLAIR_SERVERFAULT_DISPLAY" 
                     description="MOD_CWFLAIR_SERVERFAULT_DISPLAY_DESC">
-                    <option value="1">CW_YES</option>
-                    <option value="0">CW_NO</option>
+                    <option value="1">JYES</option>
+                    <option value="0">JNO</option>
                 </field>
                         
                 <field 
@@ -432,8 +427,8 @@
                     default="0"
                     label="MOD_CWFLAIR_STACKOVERFLOW_DISPLAY" 
                     description="MOD_CWFLAIR_STACKOVERFLOW_DISPLAY_DESC">
-                    <option value="1">CW_YES</option>
-                    <option value="0">CW_NO</option>
+                    <option value="1">JYES</option>
+                    <option value="0">JNO</option>
                 </field>
                         
                 <field 
@@ -477,8 +472,8 @@
                     default="0"
                     label="MOD_CWFLAIR_SUPERUSER_DISPLAY" 
                     description="MOD_CWFLAIR_SUPERUSER_DISPLAY_DESC">
-                    <option value="1">CW_YES</option>
-                    <option value="0">CW_NO</option>
+                    <option value="1">JYES</option>
+                    <option value="0">JNO</option>
                 </field>
                         
                 <field 
@@ -512,28 +507,85 @@
             </fieldset> 
                         
             <fieldset name="advanced">
-                        
-                <field 
-                    name="moduleclass_sfx" 
-                    type="text"
-                    label="COM_MODULES_FIELD_MODULECLASS_SFX_LABEL"
-                    description="COM_MODULES_FIELD_MODULECLASS_SFX_DESC" />
 
-                <field 
-                    name="owncache" 
-                    type="list" 
-                    default="1"
-                    label="COM_MODULES_FIELD_CACHING_LABEL" description="COM_MODULES_FIELD_CACHING_DESC" >
+                <field
+                        name="dependency_spacer"
+                        type="spacer"
+                        label="MOD_CWFLAIR_SPACER_DEPENDENCY"
+                        class="cw_label"/>
+
+                <field
+                        name="dependency_info"
+                        type="note"
+                        class="alert alert-info"
+                        close="true"
+                        description="MOD_CWFLAIR_DEPENDENCY_MSG"/>
+
+                <field
+                        name="dependent_gears"
+                        type="dependent"
+                        label="MOD_CWFLAIR"
+                        description="plg_system_cwgears"/>
+
+                <field
+                        name="debug_spacer"
+                        type="spacer"
+                        label="MOD_CWFLAIR_SPACER_DEBUG"
+                        class="cw_label"/>
+
+                <field
+                        name="debug_info"
+                        type="note"
+                        class="alert alert-info"
+                        close="true"
+                        description="MOD_CWFLAIR_MSG_DEBUG"/>
+
+                <field
+                        name="debug"
+                        class="btn-group btn-group-yesno"
+                        type="radio"
+                        default="0"
+                        label="MOD_CWFLAIR_FIELD_DEBUG_LABEL"
+                        description="MOD_CWFLAIR_FIELD_DEBUG_DESC">
+                    <option value="1">JYES</option>
+                    <option value="0">JNO</option>
+                </field>
+
+                <field
+                        name="advanced_spacer"
+                        type="spacer"
+                        label="MOD_CWFLAIR_SPACER_ADVANCED"
+                        class="cw_label"/>
+
+                <field
+                        name="moduleclass_sfx"
+                        type="text"
+                        label="COM_MODULES_FIELD_MODULECLASS_SFX_LABEL"
+                        description="COM_MODULES_FIELD_MODULECLASS_SFX_DESC"/>
+
+                <field
+                        name="cache"
+                        type="list"
+                        default="0"
+                        label="COM_MODULES_FIELD_CACHING_LABEL"
+                        description="COM_MODULES_FIELD_CACHING_DESC">
                     <option value="1">JGLOBAL_USE_GLOBAL</option>
                     <option value="0">COM_MODULES_FIELD_VALUE_NOCACHING</option>
                 </field>
 
-                <field 
-                    name="cache_time" 
-                    type="text" 
-                    default="900"
-                    label="COM_MODULES_FIELD_CACHE_TIME_LABEL" 
-                    description="COM_MODULES_FIELD_CACHE_TIME_DESC" />
+                <field
+                        name="cache_time"
+                        type="text"
+                        default="900"
+                        label="COM_MODULES_FIELD_CACHE_TIME_LABEL"
+                        description="COM_MODULES_FIELD_CACHE_TIME_DESC"/>
+
+                <field
+                        name="cachemode"
+                        type="hidden"
+                        default="itemid">
+                    <option value="itemid"></option>
+                </field>
                             
                 <field 
                     name="load_css" 
@@ -551,10 +603,10 @@
             <fieldset 
                 name="VERSION"
                 label="MOD_CWFLAIR_TITLE_VERSION">
-                
-                <field 
-                    name="version_info"
-                    type="version"
+
+                <field
+                        name="version_info"
+                        type="versioncheck"
                     label="mod_coalawebflair"/>
                 
             </fieldset>

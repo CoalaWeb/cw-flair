@@ -19,7 +19,7 @@
 
 **Need CoalaWeb Flair in a different language?**
 
-[Language Packs](https://coalaweb.com/downloads/language-packs/joomla-extensions) thanks to the **Open Translators** and hosted on **Transifex**.
+[Language Packs](https://coalaweb.com/downloads/language-packs/joomla-extensions) thanks to **Community Translators** and hosted on [Transifex](https://www.transifex.com/coalaweb/).
 
 ### Support
 

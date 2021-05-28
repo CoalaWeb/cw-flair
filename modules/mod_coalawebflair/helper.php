@@ -1,17 +1,14 @@
 <?php
 
-defined('_JEXEC') or die('Restricted access');
-
 /**
- * @package             Joomla
- * @subpackage          Coala Web Flair Module
- * @author              Steven Palmer
- * @author url          https://coalaweb.com
- * @author email        support@coalaweb.com
- * @license             GNU/GPL, see /assets/en-GB.license.txt
- * @copyright           Copyright (c) 2017 Steven Palmer All rights reserved.
+ * @package     Joomla
+ * @subpackage  CoalaWeb Flair
+ * @author      Steven Palmer <support@coalaweb.com>
+ * @link        https://coalaweb.com/
+ * @license     GNU/GPL V3 or later; https://www.gnu.org/licenses/gpl-3.0.html
+ * @copyright   Copyright (c) 2021 Steven Palmer All rights reserved.
  *
- * Coala Web Flair is free software: you can redistribute it and/or modify
+ * CoalaWeb Flair is free software: you can redistribute it and/or modify
  * it under the terms of the GNU General Public License as published by
  * the Free Software Foundation, either version 3 of the License, or
  * (at your option) any later version.
@@ -19,18 +16,18 @@ defined('_JEXEC') or die('Restricted access');
  * but WITHOUT ANY WARRANTY; without even the implied warranty of
  * MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
  * GNU General Public License for more details.
- * You should have received a copy of the GNU General Public License
- * along with this program.  If not, see <https://www.gnu.org/licenses/>.
  */
+
+defined('_JEXEC') or die('Restricted access');
+
 class CoalawebFlairHelper
 {
 
     /**
      * Combined Stackexchnage flair
-     *
-     * @param type $combinedId
-     * @param type $combinedPname
-     * @return array
+     * @param $combinedId
+     * @param $combinedPname
+     * @return string
      */
     function getStackExchangeFlair($combinedId, $combinedPname)
     {
@@ -42,8 +39,12 @@ class CoalawebFlairHelper
         return implode("\n", $output);
     }
 
-    /* Individual Flair Accounts */
-
+    /**
+     * @param $soId
+     * @param $soPname
+     * @param $soTheme
+     * @return string
+     */
     function getStackOverflowFlair($soId, $soPname, $soTheme)
     {
         $output[] = '<div class="cwf-profile">';
@@ -54,6 +55,12 @@ class CoalawebFlairHelper
         return implode("\n", $output);
     }
 
+    /**
+     * @param $auId
+     * @param $auPname
+     * @param $auTheme
+     * @return string
+     */
     function getAskUbuntuFlair($auId, $auPname, $auTheme)
     {
         $output[] = '<div class="cwf-profile">';
@@ -64,6 +71,12 @@ class CoalawebFlairHelper
         return implode("\n", $output);
     }
 
+    /**
+     * @param $suId
+     * @param $suPname
+     * @param $suTheme
+     * @return string
+     */
     function getSuperUserFlair($suId, $suPname, $suTheme)
     {
         $output[] = '<div class="cwf-profile">';
@@ -74,6 +87,12 @@ class CoalawebFlairHelper
         return implode("\n", $output);
     }
 
+    /**
+     * @param $arId
+     * @param $arPname
+     * @param $arTheme
+     * @return string
+     */
     function getArqadeFlair($arId, $arPname, $arTheme)
     {
         $output[] = '<div class="cwf-profile">';
@@ -84,6 +103,12 @@ class CoalawebFlairHelper
         return implode("\n", $output);
     }
 
+    /**
+     * @param $maId
+     * @param $maPname
+     * @param $maTheme
+     * @return string
+     */
     function getMathematicsFlair($maId, $maPname, $maTheme)
     {
         $output[] = '<div class="cwf-profile">';
@@ -94,6 +119,12 @@ class CoalawebFlairHelper
         return implode("\n", $output);
     }
 
+    /**
+     * @param $adId
+     * @param $adPname
+     * @param $adTheme
+     * @return string
+     */
     function getAskDifferentFlair($adId, $adPname, $adTheme)
     {
         $output[] = '<div class="cwf-profile">';
@@ -104,6 +135,12 @@ class CoalawebFlairHelper
         return implode("\n", $output);
     }
 
+    /**
+     * @param $areaId
+     * @param $areaPname
+     * @param $areaTheme
+     * @return string
+     */
     function getAreaFlair($areaId, $areaPname, $areaTheme)
     {
         $output[] = '<div class="cwf-profile">';
@@ -114,6 +151,12 @@ class CoalawebFlairHelper
         return implode("\n", $output);
     }
 
+    /**
+     * @param $sfId
+     * @param $sfPname
+     * @param $sfTheme
+     * @return string
+     */
     function getServerFaultFlair($sfId, $sfPname, $sfTheme)
     {
         $output[] = '<div class="cwf-profile">';
@@ -124,6 +167,12 @@ class CoalawebFlairHelper
         return implode("\n", $output);
     }
 
+    /**
+     * @param $elId
+     * @param $elPname
+     * @param $elTheme
+     * @return string
+     */
     function getEnglishLanguageFlair($elId, $elPname, $elTheme)
     {
         $output[] = '<div class="cwf-profile">';

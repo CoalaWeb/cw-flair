@@ -1,26 +1,61 @@
-<?php defined('_JEXEC') or die('Restricted access');
+<?php
+
 /**
- * @package             Joomla
- * @subpackage          Coala Web Flair Module
- * @author              Steven Palmer
- * @author url          https://coalaweb.com
- * @author email        support@coalaweb.com
- * @license             GNU/GPL, see /assets/en-GB.license.txt
- * @copyright           Copyright (c) 2017 Steven Palmer All rights reserved.
- *
- * Coala Web Flair is free software: you can redistribute it and/or modify
- * it under the terms of the GNU General Public License as published by
- * the Free Software Foundation, either version 3 of the License, or
- * (at your option) any later version.
- * This program is distributed in the hope that it will be useful,
- * but WITHOUT ANY WARRANTY; without even the implied warranty of
- * MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
- * GNU General Public License for more details.
- * You should have received a copy of the GNU General Public License
- * along with this program.  If not, see <https://www.gnu.org/licenses/>.
- */
+* @package     Joomla
+* @subpackage  CoalaWeb Flair
+* @author      Steven Palmer <support@coalaweb.com>
+* @link        https://coalaweb.com/
+* @license     GNU/GPL V3 or later; https://www.gnu.org/licenses/gpl-3.0.html
+* @copyright   Copyright (c) 2021 Steven Palmer All rights reserved.
+*
+* CoalaWeb Flair is free software: you can redistribute it and/or modify
+* it under the terms of the GNU General Public License as published by
+* the Free Software Foundation, either version 3 of the License, or
+* (at your option) any later version.
+* This program is distributed in the hope that it will be useful,
+* but WITHOUT ANY WARRANTY; without even the implied warranty of
+* MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
+* GNU General Public License for more details.
+*/
+
+ defined('_JEXEC') or die('Restricted access');
 
 require_once dirname(__FILE__) . '/helper.php';
+
+$doc = JFactory::getDocument();
+JHtml::_('jquery.framework');
+
+JLoader::register('CoalawebFlairHelperTools', dirname(__FILE__) . '/tools.php');
+
+// Lets get our helper functions
+$tools = new CoalawebFlairHelperTools();
+$helpFunc = new CoalawebFlairHelper();
+
+//Check dependencies
+$assets = [
+    'mobile' => false,
+    'count' => false,
+    'tools' => true,
+    'latest' => false
+];
+$extensions = array(
+    'components' => array(
+    ),
+    'modules' => array(
+    ),
+    'plugins' => array(
+    )
+);
+$checkOk = $tools::checkDependencies('MOD_CWFLAIR', $assets, $extensions);
+
+// Use local param or from the component
+$debug =  $params->get('debug', '0');
+if ($checkOk['ok'] === false) {
+    if ($debug === '1') {
+        JFactory::getApplication()->enqueueMessage($checkOk['msg'], $checkOk['type']);
+    }
+    return false;
+}
 
 // Load the language files
 $jlang = JFactory::getLanguage();
@@ -34,7 +69,6 @@ $jlang->load('mod_coalawebflair', JPATH_SITE, null, true);
 $urlModMedia = JURI::root() . "media/coalawebflair/modules/flair/";
 $moduleClassSfx = htmlspecialchars($params->get('moduleclass_sfx'));
 
-$doc = JFactory::getDocument();
 if ($params->get("load_css")) {
     $doc->addStyleSheet($urlModMedia . "css/cwf-default.css");
 }
@@ -91,7 +125,5 @@ $elTheme = $params->get('el_theme');
 $layout = $params->get('layout');
 $uniqueId = $module->id;
 
-$helpFunc = new CoalawebFlairHelper();
-
 // get layout
-require(JModuleHelper::getLayoutPath('mod_coalawebflair'));
+require JModuleHelper::getLayoutPath('mod_coalawebflair', $params->get('layout', 'default'));

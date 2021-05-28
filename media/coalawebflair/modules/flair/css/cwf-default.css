@@ -1,8 +1,7 @@
 /**
- * @author              Steven Palmer
- * @author url          https://coalaweb.com
- * @author email        support@coalaweb.com
- * @copyright           Copyright (c) 2017 Steven Palmer All rights reserved.
+ * @author      Steven Palmer <support@coalaweb.com>
+ * @link        https://coalaweb.com/
+ * @copyright   Copyright (c) 2021 Steven Palmer All rights reserved.
  */
  
 /* Module Frontend Style
@@ -17,15 +16,6 @@
 
 .cwf-profile {
     margin-bottom:10px;
-}
-
-/* Copyright 
-------------------------------------------------------------------------------*/
-.cw-flair-mod-copyrht{
-    margin-top:10px;
-    text-align: center;
-    display:block;
-    font-size: 12px;
 }
 
 /* End
